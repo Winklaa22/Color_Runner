@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -12,6 +13,10 @@ public class PlayerController : MonoBehaviour
     
     [Header("Turn")]
     [SerializeField, Range(0, 360)] private float _turnAngle = 45f;
+
+    [Header("Jump")] 
+    [SerializeField] private float m_jumpForce;
+    [SerializeField] private float m_detectGroundRayLengh;
     
     [Header("Movement")]
     [SerializeField] private AnimationCurve m_momentumCurve;
@@ -25,7 +30,15 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        InputsManager.Instance.OnDoubleTapAction += Jump;
+    }
+
+    private void Jump()
+    {
+        if (!_isMoving || !IsGrounded()) 
+            return;
         
+        m_rigidbody.AddForce(Vector3.up * m_jumpForce, ForceMode.Impulse);
     }
 
     // Update is called once per frame
@@ -42,12 +55,17 @@ public class PlayerController : MonoBehaviour
             
         return InputsManager.Instance.GetXDirection() * m_momentumMask;
     }
+
+    private bool IsGrounded()
+    {
+        return Physics.Raycast(transform.position, Vector3.down, out var hit, m_detectGroundRayLengh);
+    }
+    
     private void SetMovement()
     {
         SetMomentum();
         SetTheTurnRotation();
-        var move = transform.right * (m_xSpeed * GetInputsValue()) + transform.forward * GetMovementSpeed();
-        m_rigidbody.velocity = move;
+        m_rigidbody.velocity = new Vector3(m_xSpeed * GetInputsValue(), m_rigidbody.velocity.y, GetMovementSpeed());
     }
     
     private void SetMomentum()
@@ -72,5 +90,10 @@ public class PlayerController : MonoBehaviour
     private float GetMovementSpeed()
     {
         return m_speedForward * m_momentumMask;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawRay(transform.position, Vector3.down * m_detectGroundRayLengh);
     }
 }
