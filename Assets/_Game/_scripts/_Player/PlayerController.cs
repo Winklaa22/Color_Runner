@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
     {
         SetMomentum();
         SetTheTurnRotation();
-        m_rigidbody.velocity = new Vector3(m_xSpeed * GetInputsValue(), m_rigidbody.velocity.y, GetMovementSpeed());
+        m_rigidbody.velocity = new Vector3(m_xSpeed * GetInputsValue(), m_rigidbody.velocity.y, m_rigidbody.velocity.z);
     }
     
     private void SetMomentum()
