@@ -1,13 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PlatformsManager : SceneSingleton<PlatformsManager>
 {
     public List<Platform> platformList;
     [SerializeField] private List<GameObject> m_plaforms;
     [SerializeField] private int _lastNumberOfPlatform = 0;
+    [SerializeField] private float m_platformSpeed = 5.0f;
+    public float PlatformSpeed => m_platformSpeed;
+
     protected override void OnStart()
     {
         base.OnStart();
@@ -37,7 +42,6 @@ public class PlatformsManager : SceneSingleton<PlatformsManager>
         _lastNumberOfPlatform--;
     }
 
-    
     private Platform DrawObject(List<Platform> platforms)
     {
         float totalProbability = 0f;

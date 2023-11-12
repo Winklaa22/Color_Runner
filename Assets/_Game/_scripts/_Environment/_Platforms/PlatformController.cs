@@ -16,6 +16,12 @@ public class PlatformController : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(Vector3.back * Time.deltaTime * 5);
+        transform.Translate(Vector3.back * Time.deltaTime * GetSpeed());
+    }
+
+    private float GetSpeed()
+    {
+
+        return PlatformsManager.Instance.PlatformSpeed * GameManager.Instance.MomentumMask;
     }
 }

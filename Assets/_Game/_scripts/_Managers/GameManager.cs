@@ -1,18 +1,30 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : SceneSingleton<GameManager>
 {
-    // Start is called before the first frame update
-    void Start()
+    [Header("Movement")]
+    [SerializeField] private AnimationCurve m_momentumCurve;
+    [SerializeField] private float m_curveMask, m_momentumMask;
+    private float _momentumCurveTime;
+    [SerializeField] private bool _isMoving;
+
+    public bool IsMoving => _isMoving;
+    public float MomentumMask => m_momentumMask;
+
+    private void Update()
     {
-        
+        SetMomentum();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void SetMomentum()
     {
-        
+        _momentumCurveTime = m_momentumCurve[m_momentumCurve.length - 1].time;
+        var mask = _isMoving ? m_curveMask + Time.deltaTime / _momentumCurveTime : m_curveMask - Time.deltaTime / _momentumCurveTime;
+        m_curveMask = Mathf.Clamp(mask, 0, 1);
+        m_momentumMask = m_momentumCurve.Evaluate(m_curveMask * m_curveMask);
     }
+
 }
