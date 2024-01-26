@@ -22,6 +22,28 @@ public class PlatformsManager : SceneSingleton<PlatformsManager>
             SpawnPlatform();
         }
     }
+    
+    private Platform DrawObject(List<Platform> platforms)
+    {
+        float totalProbability = 0f;
+        foreach (Platform platform in platforms)
+        {
+            totalProbability += platform.probabilityNumber;
+        }
+            
+        float randomValue = Random.Range(0f, totalProbability);
+            
+        foreach (Platform platform in platforms)
+        {
+            if (randomValue <= platform.probabilityNumber)
+            {
+                return platform; 
+            }
+            randomValue -= platform.probabilityNumber;
+        }
+            
+        return platforms[0];
+    }
 
     public void SpawnPlatform()
     {
@@ -42,27 +64,7 @@ public class PlatformsManager : SceneSingleton<PlatformsManager>
         _lastNumberOfPlatform--;
     }
 
-    private Platform DrawObject(List<Platform> platforms)
-    {
-        float totalProbability = 0f;
-        foreach (Platform platform in platforms)
-        {
-            totalProbability += platform.probabilityNumber;
-        }
-        
-        float randomValue = Random.Range(0f, totalProbability);
-        
-        foreach (Platform platform in platforms)
-        {
-            if (randomValue <= platform.probabilityNumber)
-            {
-                return platform; 
-            }
-            randomValue -= platform.probabilityNumber;
-        }
-        
-        return platforms[0];
-    }
+
 }
 [System.Serializable]
 public class Platform
@@ -71,3 +73,5 @@ public class Platform
     public float probabilityNumber;
     public GameObject gameObject; 
 }
+
+// This code was written by Filip Winkler and --------> NATALIA PAWLAK <---------

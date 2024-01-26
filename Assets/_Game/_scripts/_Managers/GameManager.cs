@@ -8,7 +8,8 @@ public class GameManager : SceneSingleton<GameManager>
     [Header("Movement")]
     [SerializeField] private AnimationCurve m_momentumCurve;
     [SerializeField] private float m_curveMask, m_momentumMask;
-    private float _momentumCurveTime;
+    
+    [SerializeField] private float _momentumCurveTime;
     [SerializeField] private bool _isMoving;
 
     public bool IsMoving => _isMoving;

@@ -11,7 +11,7 @@ public class InputsManager : SceneSingleton<InputsManager>
     private PlayerControls _playerControls;
     private Vector2 _startedPos;
     private bool _isTouching;
-    public Action OnDoubleTapAction;
+    public Action OnTouchEnd;
         
     private void Init()
     {
@@ -55,7 +55,7 @@ public class InputsManager : SceneSingleton<InputsManager>
         
         if (_tapsCount >= 2)
         {
-            OnDoubleTapAction?.Invoke();
+            //OnDoubleTapAction?.Invoke();
             _tapsCount = 0;
         }
         
@@ -73,6 +73,7 @@ public class InputsManager : SceneSingleton<InputsManager>
     private void OnEndPrimaryTouch()
     {
         _isTouching = false;
+        OnTouchEnd?.Invoke();
     }
 
     private Vector2 PrimaryTouch()
@@ -85,12 +86,28 @@ public class InputsManager : SceneSingleton<InputsManager>
         if (!_isTouching)
             return 0;
             
+
         var direction = PrimaryTouch() - _startedPos;
 
-        if (direction.Equals(Vector2.zero))
+        if (Mathf.Abs(direction.x) < 100)
             return 0;
             
-        var value = direction.x > 0 ? 1 : -1;
+        var value = direction.x > 1 ? 1 : -1;
+        return value;
+    }
+
+    public float GetYDirection()
+    {
+
+        var direction = PrimaryTouch() - _startedPos;
+        
+
+        if (Mathf.Abs(direction.y) < 500)
+            return 0;
+
+       
+        var value = direction.y / Mathf.Abs(direction.y);
+        Debug.Log("Direction Y: " + value);
         return value;
     }
 }

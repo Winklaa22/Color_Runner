@@ -7,6 +7,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Transform m_characterTransform;
+    [SerializeField] private Animator m_playerAnimator;
     
     [Header("Physics")]
     [SerializeField] private Rigidbody m_rigidbody;
@@ -22,25 +23,50 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float m_xSpeed;
 
     private bool _canMove;
-    
+    private bool _isJumping;
+
     // Start is called before the first frame update
     void Start()
     {
-        InputsManager.Instance.OnDoubleTapAction += Jump;
+        InputsManager.Instance.OnTouchEnd += ()=>
+        {
+            if(InputsManager.Instance.GetYDirection() == 1)
+            {
+                StartCoroutine(Jump());
+            }
+        };
+        InitalizeAnimations();
     }
 
-    private void Jump()
+    private void InitalizeAnimations()
     {
-        if (!GameManager.Instance.IsMoving || !IsGrounded()) 
-            return;
+        PlayerAnimationsManager.Instance.SetAnimationHandler(m_playerAnimator);
+    }
+
+    private IEnumerator Jump()
+    {
+        if (!GameManager.Instance.IsMoving || !IsGrounded())
+            yield break;
+
+        _isJumping = true;
+        
         
         m_rigidbody.AddForce(Vector3.up * m_jumpForce, ForceMode.Impulse);
+        yield return new WaitForSeconds(.3f);
+
+        while (!IsGrounded()){
+            yield return null;
+        }
+
+        _isJumping = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         SetMovement();
+        PlayerAnimationsManager.Instance.AnimationsHandler.SetBool(PlayerAnimationNames.FallingBool, !IsGrounded());
+        PlayerAnimationsManager.Instance.AnimationsHandler.SetBool(PlayerAnimationNames.JumpingBool, _isJumping);
     }
     
     
@@ -59,6 +85,7 @@ public class PlayerController : MonoBehaviour
     
     private void SetMovement()
     {
+        PlayerAnimationsManager.Instance.AnimationsHandler.SetFloat(PlayerAnimationNames.MomentumFloat, GameManager.Instance.MomentumMask);
         SetTheTurnRotation();
         m_rigidbody.velocity = new Vector3(m_xSpeed * GetInputsValue(), m_rigidbody.velocity.y, m_rigidbody.velocity.z);
     }
