@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour
     
     [Header("Physics")]
     [SerializeField] private Rigidbody m_rigidbody;
+    [SerializeField] private CapsuleCollider m_playerCollider;
+    [SerializeField] private TriggerController m_collisionDetector;
+    [SerializeField] private RagdollController m_ragdollController;
     
     [Header("Turn")]
     [SerializeField, Range(0, 360)] private float _turnAngle = 45f;
@@ -65,7 +68,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         SetMovement();
-        PlayerAnimationsManager.Instance.AnimationsHandler.SetBool(PlayerAnimationNames.FallingBool, !IsGrounded());
+        PlayerAnimationsManager.Instance.AnimationsHandler.SetBool(PlayerAnimationNames.FallingBool, !IsGrounded() && !_isJumping);
         PlayerAnimationsManager.Instance.AnimationsHandler.SetBool(PlayerAnimationNames.JumpingBool, _isJumping);
     }
     
@@ -80,7 +83,7 @@ public class PlayerController : MonoBehaviour
 
     private bool IsGrounded()
     {
-        return Physics.Raycast(transform.position, Vector3.down, out var hit, m_detectGroundRayLengh);
+        return Physics.Raycast(transform.position, Vector3.down, out _, m_detectGroundRayLengh);
     }
     
     private void SetMovement()
@@ -100,6 +103,23 @@ public class PlayerController : MonoBehaviour
     public void SetModelRotateToAngle(float angle)
     {
         m_characterTransform.DOLocalRotate(new Vector3(0, angle, 0), 1, RotateMode.Fast);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (m_collisionDetector.IsDetecting && collision.collider.gameObject.Equals(m_collisionDetector.DetectingObject))
+        {
+            Death();
+        }
+    }
+
+    private void Death()
+    {
+        GameManager.Instance.IsMoving = false;
+        m_playerAnimator.enabled = false;
+        m_playerCollider.enabled = false;
+        m_rigidbody.isKinematic = true;
+        m_ragdollController.SetActive(true);
     }
 
     private void OnDrawGizmos()

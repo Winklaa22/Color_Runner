@@ -12,7 +12,11 @@ public class GameManager : SceneSingleton<GameManager>
     [SerializeField] private float _momentumCurveTime;
     [SerializeField] private bool _isMoving;
 
-    public bool IsMoving => _isMoving;
+    public bool IsMoving
+    {
+        set => _isMoving = value;
+        get => _isMoving;
+    }
     public float MomentumMask => m_momentumMask;
 
     private void Update()
@@ -28,4 +32,8 @@ public class GameManager : SceneSingleton<GameManager>
         m_momentumMask = m_momentumCurve.Evaluate(m_curveMask * m_curveMask);
     }
 
+    public void ResetLevel()
+    {
+        Application.LoadLevel(0);
+    }
 }

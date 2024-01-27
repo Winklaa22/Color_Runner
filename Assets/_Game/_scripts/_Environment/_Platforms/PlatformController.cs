@@ -6,11 +6,16 @@ using UnityEngine;
 public class PlatformController : MonoBehaviour
 {
     private float _timeToDestroy = 5.0f;
+    
 
     public IEnumerator CountingToDestroy()
     {
         PlatformsManager.Instance.SpawnPlatform();
         yield return new WaitForSeconds(_timeToDestroy);
+
+        if(!GameManager.Instance.IsMoving)
+            yield break;
+
         PlatformsManager.Instance.DestroyPlatform();
     }
 
@@ -24,4 +29,6 @@ public class PlatformController : MonoBehaviour
 
         return PlatformsManager.Instance.PlatformSpeed * GameManager.Instance.MomentumMask;
     }
+
+
 }
