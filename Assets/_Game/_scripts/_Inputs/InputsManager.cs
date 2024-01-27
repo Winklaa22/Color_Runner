@@ -51,17 +51,6 @@ public class InputsManager : SceneSingleton<InputsManager>
         _startedPos = PrimaryTouch();
         _isTouching = true;
 
-        _tapsCount++;
-        
-        if (_tapsCount >= 2)
-        {
-            //OnDoubleTapAction?.Invoke();
-            _tapsCount = 0;
-        }
-        
-        StopCoroutine(ResetTapsCounter());
-        StartCoroutine(ResetTapsCounter());
-
     }
 
     private IEnumerator ResetTapsCounter()

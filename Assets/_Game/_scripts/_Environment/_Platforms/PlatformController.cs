@@ -10,7 +10,6 @@ public class PlatformController : MonoBehaviour
 
     public IEnumerator CountingToDestroy()
     {
-        PlatformsManager.Instance.SpawnPlatform();
         yield return new WaitForSeconds(_timeToDestroy);
 
         if(!GameManager.Instance.IsMoving)
