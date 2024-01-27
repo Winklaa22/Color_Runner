@@ -805,13 +805,13 @@ MonoBehaviour:
       _string: Hello World!
       b: 0
     decimalsAttributeExamples:
-      oneDecimal: 0.1
+      oneDecimal: 2
       twoDecimal: 0.02
-      onlyTens: 20
-      onlyHundreds: 300
+      onlyTens: 220
+      onlyHundreds: -1800
     delayed2AttributeExamples:
       delayed: Edit Here
-      instant: Edit Here
+      instant: 
       b2: 0
     displayAutoPropertyAttributeExamples:
       _: 0
@@ -833,7 +833,7 @@ MonoBehaviour:
       position: {x: 0, y: 0, z: 0}
       evenNumber: 66
     gUIColorAttributeExamples:
-      a: 0
+      a: 69
       b: 0
       s1: Hello World!
       s2: Hello World!
@@ -842,12 +842,12 @@ MonoBehaviour:
       s5: Hello World!
       s6: Hello World!
       s7: Hello World!
-      c: 0
+      c: 64
       d: 0
     hideFieldAttributeExamples:
       _: 0
       a1: 0
-      a2: 0
+      a2: 1
       __: 0
       b1: 0
       b2: 0
@@ -978,22 +978,22 @@ MonoBehaviour:
       customColors: 0
       headColor: {r: 1, g: 1, b: 1, a: 1}
       bodyColor: {r: 0, g: 0, b: 0, a: 1}
-      condition1: 1
+      condition1: 0
       condition2: 0
       cond1True: {fileID: 0}
       someText: both conditions are true
       material: {fileID: 0}
-      tiling: {x: 0, y: 0}
+      tiling: {x: 0, y: 0.96}
       a: 0
       b: 1
       info: both are the same
       toggle1: 0
       float1: 0
       float2: 0
-      playername: Bob
+      playername: 
       _: 0
     showIfIsAttributeExamples:
-      labeling: 0
+      labeling: 1
       labelText: my label
     showIfIsNotAttributeExamples:
       labeling: 0
@@ -1015,7 +1015,7 @@ MonoBehaviour:
         a: 0
         b: 0
     space2AttributeExamples:
-      myBool: 0
+      myBool: 1
     tabAttributeExamples:
       item: {fileID: 0}
       weight: 0
@@ -1131,7 +1131,8 @@ MonoBehaviour:
         assetReference: {fileID: 0}
       path:
         path: Assets
-        assetReference: {fileID: 102900000, guid: 00000000000000001000000000000000, type: 3}
+        assetReference: {fileID: 102900000, guid: 00000000000000001000000000000000,
+          type: 3}
     lineGraphExamples:
       ak47_damage:
         _: 0
