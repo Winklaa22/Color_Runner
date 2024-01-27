@@ -28,8 +28,6 @@ public class PlatformsManager : SceneSingleton<PlatformsManager>
         {
             SpawnPlatform();
         }
-
-        StartCoroutine(Spawning());
     }
     
     private PlatformType DrawObject(List<PlatformType> platforms)
@@ -60,7 +58,6 @@ public class PlatformsManager : SceneSingleton<PlatformsManager>
 
         if(_lastPlatform != null && platformOject.ID.Equals(_lastPlatform.ID))
         {
-            Debug.Log("Do dupy");
             platformOject = DrawObject(platformList).GetPlatform();
         }
 
@@ -80,18 +77,26 @@ public class PlatformsManager : SceneSingleton<PlatformsManager>
         _lastNumberOfPlatform--;
     }
 
-    private IEnumerator Spawning()
+    public void StartSpawning()
+    {
+        StartCoroutine(Spawning());
+    }
+
+    public void StopSpawning()
+    {
+        StopCoroutine(Spawning());
+    }
+
+    public IEnumerator Spawning()
     {
         yield return new WaitForSeconds(m_spawningDelay);
+
         if (!GameManager.Instance.IsMoving)
-        {
-            while (!GameManager.Instance.IsMoving)
-            {
-                yield return null;
-            }
-        }
+            yield break;
 
         SpawnPlatform();
+
+        yield return Spawning();
     }
 
 }

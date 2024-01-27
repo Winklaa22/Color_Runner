@@ -9,7 +9,7 @@ public class ScreenController : MonoBehaviour
     public ScreenType Type => m_type;
 
     [SerializeField] private View m_mainView;
-    [SerializeField] private List<View> m_views;
+    [SerializeField] private List<View> m_views = new();
 
     public void OpenScreen()
     {

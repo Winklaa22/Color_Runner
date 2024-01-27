@@ -87,13 +87,11 @@ public class InputsManager : SceneSingleton<InputsManager>
 
     public float GetYDirection()
     {
-
         var direction = PrimaryTouch() - _startedPos;
         
 
         if (Mathf.Abs(direction.y) < 500)
             return 0;
-
        
         var value = direction.y / Mathf.Abs(direction.y);
         Debug.Log("Direction Y: " + value);

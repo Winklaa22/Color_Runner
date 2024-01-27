@@ -19,6 +19,7 @@ public class GameManager : SceneSingleton<GameManager>
         set => _isMoving = value;
         get => _isMoving;
     }
+
     public float MomentumMask => m_momentumMask;
 
     protected override void OnStart()
@@ -26,7 +27,13 @@ public class GameManager : SceneSingleton<GameManager>
         base.OnStart();
         StartCoroutine(CountMeters());
     }
-    
+
+    internal void StartGame()
+    {
+        _isMoving = true;
+        PlatformsManager.Instance.StartSpawning();
+    }
+
     private void Update()
     {
         SetMomentum();
@@ -47,6 +54,12 @@ public class GameManager : SceneSingleton<GameManager>
         yield return new WaitForSeconds(.01f);
         m_meters += 0.05f * m_momentumMask;
         yield return CountMeters();
+    }
+
+    public void GameOver()
+    {
+        PlatformsManager.Instance.StopSpawning();
+        _isMoving = false;
     }
 
     public void ResetLevel()
