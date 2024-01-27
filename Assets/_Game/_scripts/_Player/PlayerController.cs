@@ -109,17 +109,22 @@ public class PlayerController : MonoBehaviour
     {
         if (m_collisionDetector.IsDetecting && collision.collider.gameObject.Equals(m_collisionDetector.DetectingObject))
         {
-            Death();
+            StartCoroutine(Death());
         }
     }
 
-    private void Death()
+    private IEnumerator Death()
     {
-        GameManager.Instance.IsMoving = false;
+        GameManager.Instance.GameOver();
         m_playerAnimator.enabled = false;
         m_playerCollider.enabled = false;
         m_rigidbody.isKinematic = true;
         m_ragdollController.SetActive(true);
+        ScreensManager.Instance.CloseLastScreen();
+
+        yield return new WaitForSeconds(2f);
+        ScreensManager.Instance.OpenScreen(ScreenType.DEATH_SCREEN);
+
     }
 
     private void OnDrawGizmos()

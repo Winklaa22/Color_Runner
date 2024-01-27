@@ -8,7 +8,9 @@ using Random = UnityEngine.Random;
 public class PlatformsManager : SceneSingleton<PlatformsManager>
 {
     public List<PlatformType> platformList;
+    [SerializeField] private GameObject m_environmentPrefab;
     [SerializeField] private List<GameObject> m_plaforms;
+    [SerializeField] private List<EnvironmentController> m_environments;
     [SerializeField] private int _lastNumberOfPlatform = 0;
     [SerializeField] private Platform _lastPlatform;
     [SerializeField] private float m_platformSpeed = 5.0f;
@@ -28,8 +30,6 @@ public class PlatformsManager : SceneSingleton<PlatformsManager>
         {
             SpawnPlatform();
         }
-
-        StartCoroutine(Spawning());
     }
     
     private PlatformType DrawObject(List<PlatformType> platforms)
@@ -60,7 +60,6 @@ public class PlatformsManager : SceneSingleton<PlatformsManager>
 
         if(_lastPlatform != null && platformOject.ID.Equals(_lastPlatform.ID))
         {
-            Debug.Log("Do dupy");
             platformOject = DrawObject(platformList).GetPlatform();
         }
 
@@ -68,7 +67,10 @@ public class PlatformsManager : SceneSingleton<PlatformsManager>
         Vector3 position = lastPlatform.position + Vector3.forward * 15;
 
         var newPlatform = Instantiate(platformOject.Model, position, Quaternion.identity);
+        var newEnvironment = Instantiate(m_environmentPrefab, position, Quaternion.identity).GetComponent<EnvironmentController>();
+        newEnvironment.SetPlatform(newPlatform.transform);
         m_plaforms.Add(newPlatform);
+        m_environments.Add(newEnvironment);
         _lastPlatform = platformOject;
         _lastNumberOfPlatform++;
     }
@@ -76,22 +78,32 @@ public class PlatformsManager : SceneSingleton<PlatformsManager>
     public void DestroyPlatform()
     {
         Destroy(m_plaforms[0]);
+        Destroy(m_environments[0]);
+        m_environments.RemoveAt(0);
         m_plaforms.RemoveAt(0);
         _lastNumberOfPlatform--;
     }
 
-    private IEnumerator Spawning()
+    public void StartSpawning()
+    {
+        StartCoroutine(Spawning());
+    }
+
+    public void StopSpawning()
+    {
+        StopCoroutine(Spawning());
+    }
+
+    public IEnumerator Spawning()
     {
         yield return new WaitForSeconds(m_spawningDelay);
+
         if (!GameManager.Instance.IsMoving)
-        {
-            while (!GameManager.Instance.IsMoving)
-            {
-                yield return null;
-            }
-        }
+            yield break;
 
         SpawnPlatform();
+
+        yield return Spawning();
     }
 
 }
