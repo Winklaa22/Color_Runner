@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     [Header("Jump")] 
     [SerializeField] private float m_jumpForce;
     [SerializeField] private float m_detectGroundRayLengh;
+    [SerializeField] private float m_jumpAnimationTime;
     
     [Header("Movement")]
     [SerializeField] private float m_xSpeed;
@@ -55,11 +56,7 @@ public class PlayerController : MonoBehaviour
         
         
         m_rigidbody.AddForce(Vector3.up * m_jumpForce, ForceMode.Impulse);
-        yield return new WaitForSeconds(.3f);
-
-        while (!IsGrounded()){
-            yield return null;
-        }
+        yield return new WaitForSeconds(m_jumpAnimationTime - 0.3f);
 
         _isJumping = false;
     }
@@ -68,7 +65,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         SetMovement();
-        PlayerAnimationsManager.Instance.AnimationsHandler.SetBool(PlayerAnimationNames.FallingBool, !IsGrounded() && !_isJumping);
+        PlayerAnimationsManager.Instance.AnimationsHandler.SetBool(PlayerAnimationNames.FallingBool, !IsGrounded());
         PlayerAnimationsManager.Instance.AnimationsHandler.SetBool(PlayerAnimationNames.JumpingBool, _isJumping);
     }
     

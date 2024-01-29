@@ -264,7 +264,7 @@ MonoBehaviour:
   - {fileID: 1277699291}
   m_environments: []
   _lastNumberOfPlatform: 0
-  m_platformSpeed: 5
+  m_platformSpeed: 7.92
   m_spawningDelay: 1
 --- !u!1001 &84708853
 PrefabInstance:
@@ -3036,6 +3036,7 @@ MonoBehaviour:
   _turnAngle: 50
   m_jumpForce: 4
   m_detectGroundRayLengh: 0.34
+  m_jumpAnimationTime: 0.7
   m_xSpeed: 3
 --- !u!136 &1384489774
 CapsuleCollider:

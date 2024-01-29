@@ -53,11 +53,6 @@ public class InputsManager : SceneSingleton<InputsManager>
 
     }
 
-    private IEnumerator ResetTapsCounter()
-    {
-        yield return new WaitForSeconds(m_timeForDoubleTap);
-        _tapsCount = 0;
-    }
 
     private void OnEndPrimaryTouch()
     {
@@ -90,11 +85,10 @@ public class InputsManager : SceneSingleton<InputsManager>
         var direction = PrimaryTouch() - _startedPos;
         
 
-        if (Mathf.Abs(direction.y) < 500)
+        if (Mathf.Abs(direction.y) < 300)
             return 0;
        
         var value = direction.y / Mathf.Abs(direction.y);
-        Debug.Log("Direction Y: " + value);
         return value;
     }
 }
