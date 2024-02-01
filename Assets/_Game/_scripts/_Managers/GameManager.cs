@@ -31,7 +31,6 @@ public class GameManager : SceneSingleton<GameManager>
     internal void StartGame()
     {
         _isMoving = true;
-        PlatformsManager.Instance.StartSpawning();
     }
 
     private void Update()
@@ -58,7 +57,6 @@ public class GameManager : SceneSingleton<GameManager>
 
     public void GameOver()
     {
-        PlatformsManager.Instance.StopSpawning();
         _isMoving = false;
     }
 

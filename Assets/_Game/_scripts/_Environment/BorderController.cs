@@ -9,9 +9,10 @@ public class BorderController : MonoBehaviour
     {
         //Debug.Log(other.gameObject.name);
         
-        if (other.gameObject.TryGetComponent(out PlatformController obj))
+        if (other.CompareTag("Platform"))
         {
-            StartCoroutine(obj.CountingToDestroy());
+            Debug.Log("Platform Entered");
+            PlatformsManager.Instance.DestroyPlatform();
         }
             
     }

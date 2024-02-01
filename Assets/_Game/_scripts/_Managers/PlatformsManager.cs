@@ -15,6 +15,7 @@ public class PlatformsManager : SceneSingleton<PlatformsManager>
     [SerializeField] private Platform _lastPlatform;
     [SerializeField] private float m_platformSpeed = 5.0f;
     [SerializeField] private float m_spawningDelay = 3.0f;
+    [SerializeField] private int m_platformCount = 5;
     public float PlatformSpeed => m_platformSpeed;
 
     protected override void OnStart()
@@ -26,7 +27,7 @@ public class PlatformsManager : SceneSingleton<PlatformsManager>
             platform.Initialize();
         }
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < m_platformCount; i++)
         {
             SpawnPlatform();
         }
@@ -60,8 +61,16 @@ public class PlatformsManager : SceneSingleton<PlatformsManager>
 
         if(_lastPlatform != null && platformOject.ID.Equals(_lastPlatform.ID))
         {
-            platformOject = DrawObject(platformList).GetPlatform();
+            while (platformOject.ID.Equals(_lastPlatform.ID))
+            {
+                Debug.Log("Finding diffrent platform...");
+                platformOject = DrawObject(platformList).GetPlatform();
+            }
+            
         }
+
+        Debug.Log("Perfect one: " + platformOject.ID);
+
 
         var lastPlatform = m_plaforms[_lastNumberOfPlatform].transform;
         Vector3 position = lastPlatform.position + Vector3.forward * 15;
@@ -78,34 +87,12 @@ public class PlatformsManager : SceneSingleton<PlatformsManager>
     public void DestroyPlatform()
     {
         Destroy(m_plaforms[0]);
-        Destroy(m_environments[0]);
+        Destroy(m_environments[0].gameObject);
         m_environments.RemoveAt(0);
         m_plaforms.RemoveAt(0);
         _lastNumberOfPlatform--;
-    }
-
-    public void StartSpawning()
-    {
-        StartCoroutine(Spawning());
-    }
-
-    public void StopSpawning()
-    {
-        StopCoroutine(Spawning());
-    }
-
-    public IEnumerator Spawning()
-    {
-        yield return new WaitForSeconds(m_spawningDelay);
-
-        if (!GameManager.Instance.IsMoving)
-            yield break;
-
         SpawnPlatform();
-
-        yield return Spawning();
     }
-
 }
 
 // This code was written by Filip Winkler and --------> NATALIA PAWLAK <---------

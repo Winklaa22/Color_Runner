@@ -14,7 +14,6 @@ public class PlatformType
         foreach (var platform in m_platforms)
         {
             var p = new Platform(platform);
-            Debug.Log(p.ID);
             _platformsData.Add(p);
         }
          
