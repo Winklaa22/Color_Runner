@@ -34,6 +34,7 @@ public abstract class View : MonoBehaviour, IView
 
     public void Open()
     {
+        OnViewOpened();
         m_view.SetActive(true);
         if (m_useAnimations)
         {
@@ -44,15 +45,27 @@ public abstract class View : MonoBehaviour, IView
         }
     }
 
+    protected virtual void OnViewOpened()
+    {
+
+    }
+
 
     public void Close()
     {
+        OnViewClosed();
+
         if (m_useAnimations)
         {
             StartCoroutine(CloseWithAnimations());
         }
         else
             m_view.SetActive(false);
+    }
+
+    protected virtual void OnViewClosed()
+    {
+
     }
 
     private IEnumerator CloseWithAnimations()

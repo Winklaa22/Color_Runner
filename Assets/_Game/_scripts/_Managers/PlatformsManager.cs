@@ -69,7 +69,7 @@ public class PlatformsManager : SceneSingleton<PlatformsManager>
             
         }
 
-        Debug.Log("Perfect one: " + platformOject.ID);
+        //Debug.Log("Perfect one: " + platformOject.ID);
 
 
         var lastPlatform = m_plaforms[_lastNumberOfPlatform].transform;

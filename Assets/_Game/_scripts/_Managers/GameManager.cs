@@ -10,9 +10,10 @@ public class GameManager : SceneSingleton<GameManager>
     [SerializeField] private AnimationCurve m_momentumCurve;
     [SerializeField] private float m_curveMask, m_momentumMask;
     [SerializeField] private float m_meters;
+    public float Meters => m_meters;
     [SerializeField] private float _momentumCurveTime;
     [SerializeField] private bool _isMoving;
-    [SerializeField] private TMP_Text m_text; 
+
 
     public bool IsMoving
     {
@@ -36,8 +37,6 @@ public class GameManager : SceneSingleton<GameManager>
     private void Update()
     {
         SetMomentum();
-      
-        m_text.text = m_meters < 1000 ? (int)m_meters + "m" : (m_meters/1000).ToString("0.00") + "km";
     }
 
     private void SetMomentum()

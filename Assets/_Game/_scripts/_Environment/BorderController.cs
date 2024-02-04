@@ -11,9 +11,7 @@ public class BorderController : MonoBehaviour
         
         if (other.CompareTag("Platform"))
         {
-            Debug.Log("Platform Entered");
             PlatformsManager.Instance.DestroyPlatform();
         }
-            
     }
 }
