@@ -32,6 +32,16 @@ public abstract class View : MonoBehaviour, IView
 
     }
 
+    private void Start()
+    {
+        OnStart();
+    }
+
+    protected virtual void OnStart()
+    {
+
+    }
+
     public void Open()
     {
         OnViewOpened();

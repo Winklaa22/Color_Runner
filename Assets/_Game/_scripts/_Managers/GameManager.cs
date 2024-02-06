@@ -13,6 +13,10 @@ public class GameManager : SceneSingleton<GameManager>
     public float Meters => m_meters;
     [SerializeField] private float _momentumCurveTime;
     [SerializeField] private bool _isMoving;
+    private int _coins;
+    public delegate void OnCoinsCountChanged(int count);
+    public OnCoinsCountChanged OnCoinsCountChanged_Entity;
+
 
 
     public bool IsMoving
@@ -37,6 +41,13 @@ public class GameManager : SceneSingleton<GameManager>
     private void Update()
     {
         SetMomentum();
+    }
+
+    public void AddCoins(int count)
+    {
+        _coins += count;
+        OnCoinsCountChanged_Entity?.Invoke(_coins);
+        Debug.Log("Add coins: " + count);
     }
 
     private void SetMomentum()
