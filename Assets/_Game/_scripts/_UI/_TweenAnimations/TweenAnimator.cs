@@ -29,11 +29,13 @@ public class TweenAnimator : MonoBehaviour
     {
         if (m_useFade)
         {
+            m_canvasGroup.alpha = m_startFadeValue;
             m_canvasGroup.DOFade(m_endFadeValue, m_dutation).SetEase(m_ease);
         }
 
         if (m_useMovement)
         {
+            m_rectTranform.localPosition = m_startMovePosition;
             m_rectTranform.DOLocalMove(m_endMovePosition, m_dutation).SetEase(m_ease);
         }
     }
@@ -42,11 +44,15 @@ public class TweenAnimator : MonoBehaviour
     {
         if (m_useFade)
         {
+            m_canvasGroup.alpha = m_endFadeValue;
+
             m_canvasGroup.DOFade(m_startFadeValue, m_dutation).SetEase(m_ease);
         }
 
         if (m_useMovement)
         {
+            m_rectTranform.localPosition = m_endMovePosition;
+
             m_rectTranform.DOLocalMove(m_startMovePosition, m_dutation).SetEase(m_ease);
         }
     }
