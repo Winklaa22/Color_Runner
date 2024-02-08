@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : SceneSingleton<GameManager>
 {
@@ -72,6 +73,6 @@ public class GameManager : SceneSingleton<GameManager>
 
     public void ResetLevel()
     {
-        Application.LoadLevel(0);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
