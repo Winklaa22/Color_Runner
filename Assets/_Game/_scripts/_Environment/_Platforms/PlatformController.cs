@@ -15,6 +15,9 @@ public class PlatformController : MonoBehaviour
 
     private void DrawGroups()
     {
+        if (m_itemsGroups.Length <= 0)
+            return;
+
         var randomIndex = Random.Range(0, m_itemsGroups.Length - 1);
         m_itemsGroups[randomIndex].DrawItems();
     }
