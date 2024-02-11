@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,18 @@ public class ScreensManager : SceneSingleton<ScreensManager>
         m_screens.Add(screen);
         screen.OpenScreen();
     }
-    
+
+    public void CloseAllScreens()
+    {
+        if (m_screens.Count <= 0)
+            return;
+
+        foreach(var screen in m_screens)
+        {
+            screen.CloseScreen();
+        }
+    }
+
     public void OpenScreen(ScreenType type)
     {
         var screen = m_allScreens.First(x => x.Type == type);

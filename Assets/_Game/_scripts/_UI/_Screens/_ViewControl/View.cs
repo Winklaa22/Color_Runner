@@ -83,7 +83,7 @@ public abstract class View : MonoBehaviour, IView
 
     private IEnumerator CloseWithAnimations()
     {
-        var duration = m_animators.OrderByDescending(obj => obj.Duration).First().Duration;
+        var duration = GetMaximalDurationOfAnimations();
         foreach (var animator in m_animators)
         {
             animator.AnimationOut();
@@ -97,4 +97,6 @@ public abstract class View : MonoBehaviour, IView
     {
         throw new System.NotImplementedException();
     }
+
+    protected float GetMaximalDurationOfAnimations() => m_animators.OrderByDescending(obj => obj.Duration).First().Duration;
 }

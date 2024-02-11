@@ -6,5 +6,8 @@ public enum ScreenType
 {
     START_SCREEN = 0,
     PLAYER_HUD = 1,
-    DEATH_SCREEN = 2
+    DEATH_SCREEN = 2,
+    MAIN_MENU = 3,
+    CUSTOM_PLAYER_SCREEN = 4,
+    RANKING_SCREEN = 5
 }

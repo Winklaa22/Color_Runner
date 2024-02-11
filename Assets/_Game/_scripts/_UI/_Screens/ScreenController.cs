@@ -19,7 +19,11 @@ public class ScreenController : MonoBehaviour
 
     public void CloseScreen()
     {
-        m_views.Last().Close();
+        foreach (var view in m_views)
+        {
+            view.Close();
+        }
+
         m_views.Clear();
     }
 

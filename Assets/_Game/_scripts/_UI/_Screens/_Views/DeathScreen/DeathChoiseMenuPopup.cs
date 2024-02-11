@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class DeathChoiseMenuPopup : View
@@ -17,11 +18,25 @@ public class DeathChoiseMenuPopup : View
 
     private void OnPlayAgainButton()
     {
+        StartCoroutine(WaitForPlayAgain());
+    }
 
+    private IEnumerator WaitForPlayAgain()
+    {
+        m_screenController.CloseScreen();
+        yield return new WaitForSeconds(GetMaximalDurationOfAnimations());
+        SceneManager.LoadScene(1);
     }
 
     private void OnReturnToMenuButton()
     {
+        StartCoroutine(WaitForReturnToMenu());
+    }
 
+    private IEnumerator WaitForReturnToMenu()
+    {
+        m_screenController.CloseScreen();
+        yield return new WaitForSeconds(GetMaximalDurationOfAnimations());
+        SceneManager.LoadScene(0);
     }
 }
