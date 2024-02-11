@@ -2143,7 +2143,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Collect 50 coins
+  m_text: Collect $ coins
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
   m_sharedMaterial: {fileID: 2147374, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
@@ -3299,6 +3299,7 @@ Transform:
   - {fileID: 1954406782}
   - {fileID: 106728978}
   - {fileID: 2027991291}
+  - {fileID: 1583803227}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4505,7 +4506,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Collect 30 coins
+  m_text: Collect $ coins
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
   m_sharedMaterial: {fileID: 2147374, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
@@ -4789,7 +4790,7 @@ MonoBehaviour:
   m_meters: 0
   _momentumCurveTime: 1
   _isMoving: 0
-  m_rewardedPercent: 15
+  m_rewardedPercent: 120
   _coins: 0
 --- !u!1 &1548041951 stripped
 GameObject:
@@ -4873,6 +4874,50 @@ CapsuleCollider:
   m_Height: 0.43154788
   m_Direction: 0
   m_Center: {x: -0.21577394, y: 0, z: 0}
+--- !u!1 &1583803226
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1583803227}
+  - component: {fileID: 1583803228}
+  m_Layer: 0
+  m_Name: SaveDataManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1583803227
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583803226}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1099511775}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1583803228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583803226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abbed5bbf4c84134ca48d665ab775503, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1647922672
 GameObject:
   m_ObjectHideFlags: 0
@@ -6141,7 +6186,9 @@ MonoBehaviour:
   m_coinsCounter: {fileID: 404567075}
   m_choiceMenuPopup: {fileID: 72688612}
   m_normalCollectButton: {fileID: 1647922675}
+  m_normalCollectButtonText: {fileID: 1516718802}
   m_rewardedCollectButton: {fileID: 1996504548}
+  m_rewardedCollectButtonText: {fileID: 641143941}
 --- !u!1 &2027243876
 GameObject:
   m_ObjectHideFlags: 0
@@ -6266,6 +6313,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2027991291}
   - component: {fileID: 2027991292}
+  - component: {fileID: 2027991293}
   m_Layer: 0
   m_Name: PlayerInfoManager
   m_TagString: Untagged
@@ -6300,6 +6348,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ed04abb414dcb54ba298559a759bd27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2027991293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027991290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fc21516424b64d498a7598c5f06dd7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_id: eee1765b-0fd2-4e6b-9618-9ecc9656f040
 --- !u!1 &2047416835
 GameObject:
   m_ObjectHideFlags: 0

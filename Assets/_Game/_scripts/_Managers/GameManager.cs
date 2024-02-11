@@ -19,6 +19,7 @@ public class GameManager : SceneSingleton<GameManager>
     [SerializeField] private float m_rewardedPercent = 15;
     [SerializeField] private int _coins;
     public int Coins => _coins;
+    public int BonusCoins => (int)(_coins * (m_rewardedPercent / 100));
     public delegate void OnCoinsCountChanged(int count);
     public OnCoinsCountChanged OnCoinsCountChanged_Entity;
 
@@ -40,7 +41,7 @@ public class GameManager : SceneSingleton<GameManager>
 
     public void AddRewaredCoins()
     {
-        _coins += (int)(_coins * (m_rewardedPercent / 100)); 
+        _coins += BonusCoins; 
     }
 
     internal void StartGame()

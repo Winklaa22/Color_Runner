@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +11,9 @@ public class DeathCollectCoinsPopup : View
 
     [Header("Buttons")]
     [SerializeField] private Button m_normalCollectButton;
+    [SerializeField] private TMP_Text m_normalCollectButtonText;
     [SerializeField] private Button m_rewardedCollectButton;
+    [SerializeField] private TMP_Text m_rewardedCollectButtonText;
 
     protected override void OnAwake()
     {
@@ -26,6 +29,20 @@ public class DeathCollectCoinsPopup : View
         {
             Invoke(nameof(ChangeScreen), 1.5f);
         };
+    }
+
+    protected override void OnViewOpened()
+    {
+        base.OnViewOpened();
+        UpdateButtonsText();
+    }
+
+    private void UpdateButtonsText()
+    {
+        var normalCoins = GameManager.Instance.Coins;
+        var rewardedCoins = normalCoins + GameManager.Instance.BonusCoins;
+        m_normalCollectButtonText.text = m_normalCollectButtonText.text.Replace("$", normalCoins.ToString());
+        m_rewardedCollectButtonText.text = m_rewardedCollectButtonText.text.Replace("$", rewardedCoins.ToString());
     }
 
     public void ChangeScreen()
@@ -51,6 +68,5 @@ public class DeathCollectCoinsPopup : View
     {
         m_normalCollectButton.interactable = false;
         m_rewardedCollectButton.interactable = false;
-
     }
 }
