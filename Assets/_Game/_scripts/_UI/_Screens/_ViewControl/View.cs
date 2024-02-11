@@ -8,6 +8,9 @@ using UnityEngine;
 
 public abstract class View : MonoBehaviour, IView
 {
+    [Header("Controller of all views")]
+    [SerializeField] protected ScreenController m_screenController;
+
     [Header("UI")]
     [SerializeField] private GameObject m_view;
 

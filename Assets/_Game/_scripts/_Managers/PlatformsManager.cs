@@ -63,7 +63,6 @@ public class PlatformsManager : SceneSingleton<PlatformsManager>
         {
             while (platformOject.ID.Equals(_lastPlatform.ID))
             {
-                Debug.Log("Finding diffrent platform...");
                 platformOject = DrawObject(platformList).GetPlatform();
             }
             

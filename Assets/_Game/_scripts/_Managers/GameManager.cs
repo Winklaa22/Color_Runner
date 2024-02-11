@@ -14,7 +14,11 @@ public class GameManager : SceneSingleton<GameManager>
     public float Meters => m_meters;
     [SerializeField] private float _momentumCurveTime;
     [SerializeField] private bool _isMoving;
-    private int _coins;
+
+    [Header("Coins")]
+    [SerializeField] private float m_rewardedPercent = 15;
+    [SerializeField] private int _coins;
+    public int Coins => _coins;
     public delegate void OnCoinsCountChanged(int count);
     public OnCoinsCountChanged OnCoinsCountChanged_Entity;
 
@@ -34,6 +38,11 @@ public class GameManager : SceneSingleton<GameManager>
         StartCoroutine(CountMeters());
     }
 
+    public void AddRewaredCoins()
+    {
+        _coins += (int)(_coins * (m_rewardedPercent / 100)); 
+    }
+
     internal void StartGame()
     {
         _isMoving = true;
@@ -48,7 +57,6 @@ public class GameManager : SceneSingleton<GameManager>
     {
         _coins += count;
         OnCoinsCountChanged_Entity?.Invoke(_coins);
-        Debug.Log("Add coins: " + count);
     }
 
     private void SetMomentum()
@@ -69,6 +77,13 @@ public class GameManager : SceneSingleton<GameManager>
     public void GameOver()
     {
         _isMoving = false;
+    }
+
+    public void CollectCoins()
+    {
+        PlayerDataManager.Instance.AddCoins(_coins);
+        _coins = 0;
+        PlayerDataManager.Instance.SaveJsonData();
     }
 
     public void ResetLevel()

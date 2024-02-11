@@ -4,7 +4,7 @@ using UnityEngine;
 [System.Serializable]
 public class SaveData
 {
-    public int Coins { get; set; }
+    public int Coins;
 
     public string SaveToJson()
     {

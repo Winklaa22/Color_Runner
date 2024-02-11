@@ -9,7 +9,6 @@ public abstract class PickableItem : MonoBehaviour
 
     protected virtual void Collect()
     {
-        Debug.Log("Collect");
         _isCollected = true;
     }
 
