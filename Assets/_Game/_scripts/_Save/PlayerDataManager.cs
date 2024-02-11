@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class PlayerDataManager : SceneSingleton<PlayerDataManager>
+public class PlayerDataManager : SceneSingleton<PlayerDataManager>, ISaveable
 {
     private int _coins;
     public int Coins => _coins;
@@ -17,7 +17,7 @@ public class PlayerDataManager : SceneSingleton<PlayerDataManager>
     protected override void OnStart()
     {
         base.OnStart();
-        LoadJsonData();
+
     }
 
     public void AddCoins(int coins)
@@ -25,29 +25,24 @@ public class PlayerDataManager : SceneSingleton<PlayerDataManager>
         _coins += coins;
     }
 
-    public void SaveJsonData()
+
+    public object CaptureState()
     {
-        var saveData = new SaveData();
-        SetPopulateSaveData(ref saveData);
-        Debug.Log("Save json: " + saveData.SaveToJson());
-        File.WriteAllText(Application.persistentDataPath + "/savedData.json", saveData.SaveToJson());
+        return new SaveData
+        {
+            CoinsData = _coins
+        };
     }
 
-    private void LoadJsonData()
+    public void RestoreState(object state)
     {
-        var saveData = new SaveData();
-        var json = File.ReadAllText(Application.persistentDataPath + "/savedData.json");
-        saveData.LoadFromJson(json);
-        SetLoadSaveData(saveData);
+        var saveData = (SaveData)state;
+        _coins = saveData.CoinsData;
     }
 
-    public void SetPopulateSaveData(ref SaveData saveData)
+    [System.Serializable]
+    private struct SaveData
     {
-        saveData.Coins = _coins;
-    }
-
-    public void SetLoadSaveData(SaveData saveData)
-    {
-        _coins = saveData.Coins;
+        public int CoinsData;
     }
 }

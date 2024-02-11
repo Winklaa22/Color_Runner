@@ -1,5 +1,5 @@
 public interface ISaveable
 {
-    public void SaveJsonData();
-    public void LoadJsonData();
+    object CaptureState();
+    void RestoreState(object state);
 }

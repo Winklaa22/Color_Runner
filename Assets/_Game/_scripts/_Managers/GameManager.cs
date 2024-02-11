@@ -83,7 +83,7 @@ public class GameManager : SceneSingleton<GameManager>
     {
         PlayerDataManager.Instance.AddCoins(_coins);
         _coins = 0;
-        PlayerDataManager.Instance.SaveJsonData();
+        SaveDataManager.Instance.Save();
     }
 
     public void ResetLevel()
