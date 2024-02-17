@@ -35,8 +35,8 @@ public class TweenAnimator : MonoBehaviour
 
         if (m_useMovement)
         {
-            m_rectTranform.localPosition = m_startMovePosition;
-            m_rectTranform.DOLocalMove(m_endMovePosition, m_dutation).SetEase(m_ease);
+            m_rectTranform.anchoredPosition = m_startMovePosition;
+            m_rectTranform.DOAnchorPos(m_endMovePosition, m_dutation).SetEase(m_ease);
         }
     }
 
@@ -51,9 +51,9 @@ public class TweenAnimator : MonoBehaviour
 
         if (m_useMovement)
         {
-            m_rectTranform.localPosition = m_endMovePosition;
+            m_rectTranform.anchoredPosition = m_endMovePosition;
 
-            m_rectTranform.DOLocalMove(m_startMovePosition, m_dutation).SetEase(m_ease);
+            m_rectTranform.DOAnchorPos(m_startMovePosition, m_dutation).SetEase(m_ease);
         }
     }
 }

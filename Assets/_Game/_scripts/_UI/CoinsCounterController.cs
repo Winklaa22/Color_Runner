@@ -32,7 +32,7 @@ public class CoinsCounterController : MonoBehaviour
         var actualCount = PlayerDataManager.Instance.Coins;
         while (elapsed < m_timeOfFilling)
         {
-            elapsed += Time.fixedDeltaTime;
+            elapsed += Time.deltaTime;
             int currentValue = (int)Mathf.Lerp(actualCount, actualCount + count, elapsed / m_timeOfFilling); 
             m_counter.text = currentValue.ToString();
             yield return null;

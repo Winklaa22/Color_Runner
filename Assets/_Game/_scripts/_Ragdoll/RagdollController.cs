@@ -5,7 +5,7 @@ using System.Linq;
 
 public class RagdollController : MonoBehaviour
 {
-    private Rigidbody[] _partsOfRagdoll;
+    [SerializeField] private Rigidbody[] _partsOfRagdoll;
     [SerializeField] private List<Collider> _colliders;
 
     [Header("Part of ragdoll")]
