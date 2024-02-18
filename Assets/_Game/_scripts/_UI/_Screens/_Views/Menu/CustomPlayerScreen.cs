@@ -29,6 +29,7 @@ public class CustomPlayerScreen : View
 
     private void OnBackToMenuButtonClicked()
     {
+        SaveDataManager.Instance.Save();
         ScreensManager.Instance.OpenScreen(ScreenType.MAIN_MENU);
     }
 }

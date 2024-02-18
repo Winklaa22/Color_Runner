@@ -20,6 +20,7 @@ public class CustomizationController : MonoBehaviour
     private void Start()
     {
         CustomPlayerManager.Instance.Entity_OnItemChanged += UpdateItem;
+        CustomPlayerManager.Instance.Slots.ToList().ForEach(x => UpdateItem(x.ItemSO));
     }
 
     private void UpdateItem(CustomItemSO itemSO)
@@ -27,39 +28,24 @@ public class CustomizationController : MonoBehaviour
         switch (itemSO.Type)
         {
             case CustomItemType.SKIN:
-                foreach (var skin in m_skins)
-                {
-                    skin.ItemObject.SetActive(skin.ItemSO == itemSO);
-                }
+                m_skins.ToList().ForEach(x => x.SetItemActive(itemSO));
                 break;
 
             case CustomItemType.HAIR:
-                foreach (var hair in m_hairs)
-                {
-                    hair.ItemObject.SetActive(hair.ItemSO == itemSO);
-                }
+                m_hairs.ToList().ForEach(x => x.SetItemActive(itemSO));
                 break;
 
             case CustomItemType.HAT:
-                foreach (var hat in m_hats)
-                {
-                    hat.ItemObject.SetActive(hat.ItemSO == itemSO);
-                }
+                m_hats.ToList().ForEach(x => x.SetItemActive(itemSO));
                 break;
 
 
             case CustomItemType.BEARD:
-                foreach (var beard in m_beards)
-                {
-                    beard.ItemObject.SetActive(beard.ItemSO == itemSO);
-                }
+                m_beards.ToList().ForEach(x => x.SetItemActive(itemSO));
                 break;
 
             case CustomItemType.FACE_ACCESORIES:
-                foreach (var acc in m_accesories)
-                {
-                    acc.ItemObject.SetActive(acc.ItemSO == itemSO);
-                }
+                m_accesories.ToList().ForEach(x => x.SetItemActive(itemSO));
                 break;
         }
     }

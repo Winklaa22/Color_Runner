@@ -13,4 +13,17 @@ public class CustomItemController : MonoBehaviour
     {
         return m_itemSO;
     }
+
+    public void SetItemActive(CustomItemSO item)
+    {
+        if(item is null || (m_itemSO.IsDefault && item.IsDefault))
+        {
+            if(item.Type.Equals(CustomItemType.SKIN))
+                m_itemObject.SetActive(true);
+            return;
+        }
+
+        if(m_itemObject != null)
+            m_itemObject.SetActive(m_itemSO == item);
+    }
 }

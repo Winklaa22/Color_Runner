@@ -43,6 +43,8 @@ public class ScreenController : MonoBehaviour
         m_views.Add(popup);
     }
 
+
+
     public void CloseLastView()
     {
         var lastView = m_views.Last();

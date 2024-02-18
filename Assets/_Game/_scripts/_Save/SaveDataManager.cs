@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
@@ -67,5 +69,31 @@ public class SaveDataManager : SceneSingleton<SaveDataManager>
                 saveable.RestoreState(value);
             }
         }
+    }
+
+    public static object SerializeList(object customobject)
+    {
+        byte[] bytes;
+        IFormatter formatter = new BinaryFormatter();
+        using (var stream = new MemoryStream())
+        {
+            formatter.Serialize(stream, customobject);
+            bytes = stream.ToArray();
+        }
+        return bytes;
+    }
+
+    public static byte[] DeserializeList(byte[] serializedcustomobject)
+    {
+        var _MemoryStream = new MemoryStream(serializedcustomobject);
+        var _BinaryFormatter = new BinaryFormatter();
+        _MemoryStream.Position = 0;
+        return (byte[])_BinaryFormatter.Deserialize(_MemoryStream);
+    }
+
+
+    private void OnApplicationQuit()
+    {
+        Save();
     }
 }
