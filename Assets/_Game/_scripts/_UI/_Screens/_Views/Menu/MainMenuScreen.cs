@@ -27,7 +27,7 @@ public class MainMenuScreen : View
     {
         m_screenController.CloseScreen();
         yield return new WaitForSeconds(GetMaximalDurationOfAnimations());
-        SceneManager.LoadScene("Game");
+        SceneTransitionManager.Instance.LoadScene(ScenesNames.GameScene);
     }
 
     private void OnPlayButtonClicked()

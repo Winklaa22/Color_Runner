@@ -89,6 +89,6 @@ public class GameManager : SceneSingleton<GameManager>
 
     public void ResetLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneTransitionManager.Instance.LoadScene(ScenesNames.GameScene);
     }
 }

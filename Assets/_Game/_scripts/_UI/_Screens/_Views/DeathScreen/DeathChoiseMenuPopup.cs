@@ -25,7 +25,7 @@ public class DeathChoiseMenuPopup : View
     {
         m_screenController.CloseScreen();
         yield return new WaitForSeconds(GetMaximalDurationOfAnimations());
-        SceneManager.LoadScene("Game");
+        SceneTransitionManager.Instance.LoadScene(ScenesNames.GameScene);
     }
 
     private void OnReturnToMenuButton()
@@ -37,6 +37,6 @@ public class DeathChoiseMenuPopup : View
     {
         m_screenController.CloseScreen();
         yield return new WaitForSeconds(GetMaximalDurationOfAnimations());
-        SceneManager.LoadScene("Menu");
+        SceneTransitionManager.Instance.LoadScene(ScenesNames.MenuScene);
     }
 }

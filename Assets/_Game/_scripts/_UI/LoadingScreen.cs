@@ -12,9 +12,7 @@ public class LoadingScreen : MonoBehaviour
     
     private IEnumerator Start()
     {
-        m_fadeBackground.DOFade(0, .5f);
         yield return new WaitForSeconds(m_duration);
-        m_fadeBackground.DOFade(1, .5f);
-        m_rectTransform.DOMoveY(-Screen.height, 0.5f).OnComplete(()=> { SceneManager.LoadScene("Menu"); });
+        m_rectTransform.DOMoveY(-Screen.height, 0.5f).OnComplete(()=> { SceneTransitionManager.Instance.LoadScene(ScenesNames.MenuScene); });
     }
 }
