@@ -9,5 +9,6 @@ public enum ScreenType
     DEATH_SCREEN = 2,
     MAIN_MENU = 3,
     CUSTOM_PLAYER_SCREEN = 4,
-    RANKING_SCREEN = 5
+    RANKING_SCREEN = 5,
+    PAUSE_SCREEN = 6
 }

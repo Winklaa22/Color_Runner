@@ -30,13 +30,13 @@ public class TweenAnimator : MonoBehaviour
         if (m_useFade)
         {
             m_canvasGroup.alpha = m_startFadeValue;
-            m_canvasGroup.DOFade(m_endFadeValue, m_dutation).SetEase(m_ease);
+            m_canvasGroup.DOFade(m_endFadeValue, m_dutation).SetEase(m_ease).SetUpdate(true);
         }
 
         if (m_useMovement)
         {
             m_rectTranform.anchoredPosition = m_startMovePosition;
-            m_rectTranform.DOAnchorPos(m_endMovePosition, m_dutation).SetEase(m_ease);
+            m_rectTranform.DOAnchorPos(m_endMovePosition, m_dutation).SetEase(m_ease).SetUpdate(true);
         }
     }
 
@@ -46,14 +46,14 @@ public class TweenAnimator : MonoBehaviour
         {
             m_canvasGroup.alpha = m_endFadeValue;
 
-            m_canvasGroup.DOFade(m_startFadeValue, m_dutation).SetEase(m_ease);
+            m_canvasGroup.DOFade(m_startFadeValue, m_dutation).SetEase(m_ease).SetUpdate(true);
         }
 
         if (m_useMovement)
         {
             m_rectTranform.anchoredPosition = m_endMovePosition;
 
-            m_rectTranform.DOAnchorPos(m_startMovePosition, m_dutation).SetEase(m_ease);
+            m_rectTranform.DOAnchorPos(m_startMovePosition, m_dutation).SetEase(m_ease).SetUpdate(true);
         }
     }
 }

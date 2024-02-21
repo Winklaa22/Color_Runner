@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHud : View
 {
@@ -10,10 +11,12 @@ public class PlayerHud : View
     [SerializeField] private TMP_Text m_metersCouter;
     [SerializeField] private TMP_Text m_coinsCounter;
     [SerializeField] private RectTransform m_coinIcon;
+    [SerializeField] private Button m_pauseButton;
 
     protected override void OnStart()
     {
         base.OnStart();
+        m_pauseButton.onClick.AddListener(OnPauseButtonClicked);
         GameManager.Instance.OnCoinsCountChanged_Entity += OnCoinsCollected;
     }
 
@@ -39,6 +42,11 @@ public class PlayerHud : View
         var meters = GameManager.Instance.Meters;
         m_metersCouter.text = meters < 1000 ? (int)meters + "m" : (meters / 1000).ToString("0.00") + "km";
 
+    }
+
+    private void OnPauseButtonClicked()
+    {
+        ScreensManager.Instance.OpenScreen(ScreenType.PAUSE_SCREEN);
     }
 
     private void OnCoinsCollected(int count)

@@ -88,7 +88,7 @@ public abstract class View : MonoBehaviour, IView
         {
             animator.AnimationOut();
         }
-        yield return new WaitForSeconds(duration);
+        yield return new WaitForSecondsRealtime(duration);
         m_view.SetActive(false);
 
     }
