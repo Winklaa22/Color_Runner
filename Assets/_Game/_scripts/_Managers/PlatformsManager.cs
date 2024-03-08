@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 public class PlatformsManager : SceneSingleton<PlatformsManager>
 {
     public List<PlatformType> platformList;
-    [SerializeField] private GameObject m_environmentPrefab;
+    [SerializeField] private GameObject[] m_environmentPrefabs;
     [SerializeField] private List<GameObject> m_plaforms;
     [SerializeField] private List<EnvironmentController> m_environments;
     [SerializeField] private int _lastNumberOfPlatform = 0;
@@ -75,7 +75,7 @@ public class PlatformsManager : SceneSingleton<PlatformsManager>
         Vector3 position = lastPlatform.position + Vector3.forward * 15;
 
         var newPlatform = Instantiate(platformOject.Model, position, Quaternion.identity);
-        var newEnvironment = Instantiate(m_environmentPrefab, position, Quaternion.identity).GetComponent<EnvironmentController>();
+        var newEnvironment = Instantiate(m_environmentPrefabs[Random.Range(0, m_environmentPrefabs.Length - 1)], position, Quaternion.identity).GetComponent<EnvironmentController>();
         newEnvironment.SetPlatform(newPlatform.transform);
         m_plaforms.Add(newPlatform);
         m_environments.Add(newEnvironment);
