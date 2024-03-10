@@ -60,8 +60,12 @@ public class DeathCollectCoinsPopup : View
     public void OnRewardedCollectButtonClicked()
     {
         TurnOffButtons();
-        GameManager.Instance.AddRewaredCoins();
-        m_coinsCounter.UpdateCoinsCount();
+        IronSourceManager.Instance.ShowRewardedVideoAd();
+        IronSourceManager.Instance.Entity_OnRewardedAdWatched += () =>
+        {
+            GameManager.Instance.AddRewaredCoins();
+            m_coinsCounter.UpdateCoinsCount();
+        };
     }
 
     private void TurnOffButtons()

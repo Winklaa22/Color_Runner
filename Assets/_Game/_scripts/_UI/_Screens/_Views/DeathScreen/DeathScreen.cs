@@ -11,6 +11,7 @@ public class DeathScreen : View
     protected override void OnViewOpened()
     {
         base.OnViewOpened();
+       
         
         if(GameManager.Instance.Coins > 0)
             m_screenController.OpenPopup(m_collectCoinsPopup);
