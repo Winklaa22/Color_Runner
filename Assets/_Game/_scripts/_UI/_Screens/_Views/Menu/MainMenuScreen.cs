@@ -27,7 +27,6 @@ public class MainMenuScreen : View
     {
         m_screenController.CloseScreen();
         yield return new WaitForSeconds(GetMaximalDurationOfAnimations());
-        IronSourceManager.Instance.showInterstitialAd();
         SceneTransitionManager.Instance.LoadScene(ScenesNames.GameScene);
     }
 
