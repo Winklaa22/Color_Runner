@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
     
     [Header("Movement")]
     [SerializeField] private float m_xSpeed;
+    [SerializeField] private Vector3 m_deathCameraPosition;
+    [SerializeField] private Transform m_cameraTranform;
 
     private bool _canMove;
     private bool _isJumping;
@@ -112,6 +114,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator Death()
     {
+        m_cameraTranform.DOLocalMove( m_deathCameraPosition, 2).SetEase(Ease.InOutExpo);
         GameManager.Instance.GameOver();
         m_playerAnimator.enabled = false;
         m_playerCollider.enabled = false;
