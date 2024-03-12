@@ -54,6 +54,14 @@ public class RagdollController : MonoBehaviour
         ragdollPart.PhysicPart.AddForce(Vector3.left * m_shootForce);
     }
 
+    public void Explosion(Transform explotionObject)
+    {
+        foreach (var part in _partsOfRagdoll)
+        {
+            part.AddExplosionForce(500, explotionObject.position, 8.0f);
+        }
+    }
+
 
 }
 

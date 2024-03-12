@@ -7,6 +7,9 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : SceneSingleton<GameManager>
 {
+    [SerializeField] private PlayerController m_player;
+    public PlayerController Player => m_player;
+
     [Header("Movement")]
     [SerializeField] private AnimationCurve m_momentumCurve;
     [SerializeField] private float m_curveMask, m_momentumMask;

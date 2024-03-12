@@ -108,11 +108,16 @@ public class PlayerController : MonoBehaviour
     {
         if (m_collisionDetector.IsDetecting && collision.collider.gameObject.Equals(m_collisionDetector.DetectingObject))
         {
-            StartCoroutine(Death());
+            StartCoroutine(Death(false, null));
         }
     }
 
-    private IEnumerator Death()
+    public void DeathByExplotion(Transform explotionObject)
+    {
+        StartCoroutine(Death(true, explotionObject));
+    }
+
+    private IEnumerator Death(bool byExplotion, Transform explotionObject)
     {
         m_cameraTranform.DOLocalMove( m_deathCameraPosition, 2).SetEase(Ease.InOutExpo);
         GameManager.Instance.GameOver();
@@ -120,6 +125,10 @@ public class PlayerController : MonoBehaviour
         m_playerCollider.enabled = false;
         m_rigidbody.isKinematic = true;
         m_ragdollController.SetActive(true);
+
+        if(byExplotion)
+            m_ragdollController.Explosion(explotionObject);
+
         ScreensManager.Instance.CloseLastScreen();
 
         yield return new WaitForSeconds(2f);
