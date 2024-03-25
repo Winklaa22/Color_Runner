@@ -1,13 +1,12 @@
 using UnityEngine;
 
+[System.Serializable]
 public class Platform
 {
-    public GameObject Model { get; private set; }
-    public string ID { get; private set; }
+    [SerializeField] private float m_probilityNumber;
+    [SerializeField] private GameObject m_model;
 
-    public Platform(GameObject model)
-    {
-        Model = model;
-        ID = System.Guid.NewGuid().ToString();
-    }
+    public float ProbabilityNumber => m_probilityNumber;
+    public GameObject Model => m_model;
+    public string ID { get; set; }
 }

@@ -1,28 +1,52 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
-public class PlatformType
+public class PlatformType   
 {
-    public float probabilityNumber;
-    [SerializeField] private GameObject[] m_platforms;
-    private List<Platform> _platformsData = new List<Platform>();
+    [SerializeField] private int m_index;
+    public int Index => m_index;
+    [SerializeField] private Platform[] m_platforms;
 
-    public void Initialize()
+    public void Init()
     {
-        foreach (var platform in m_platforms)
+        m_platforms.ToList().ForEach(x =>
         {
-            var p = new Platform(platform);
-            _platformsData.Add(p);
-        }
-         
+            x.ID = System.Guid.NewGuid().ToString();
+        });
     }
 
     public Platform GetPlatform()
     {
-        var randomIndex = Random.Range(0, _platformsData.Count - 1);
+        var randomIndex = Random.Range(0, m_platforms.Length - 1);
         
-        return _platformsData[randomIndex];
+        return m_platforms[randomIndex];
+    }
+
+    public Platform DrawPlatform(Platform lastPlatform)
+    {
+        float totalProbability = 0f;
+        foreach (var platform in m_platforms)
+        {
+            totalProbability += platform.ProbabilityNumber;
+        }
+
+        float randomValue = Random.Range(0f, totalProbability);
+
+        foreach (var platform in m_platforms)
+        {
+            if (randomValue <= platform.ProbabilityNumber)
+            {
+                if (lastPlatform != null && platform.ID.Equals(lastPlatform.ID))
+                    continue;
+
+                return platform;
+            }
+            randomValue -= platform.ProbabilityNumber;
+        }
+
+        return m_platforms[0];
     }
 }

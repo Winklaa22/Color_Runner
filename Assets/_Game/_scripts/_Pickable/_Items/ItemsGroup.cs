@@ -26,7 +26,6 @@ public class ItemsGroup : MonoBehaviour
         foreach (var place in m_itemsTranform)
         {
             Gizmos.DrawWireSphere(place.position, m_gizmosRadius);
-            
         }
     }
 }

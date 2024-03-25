@@ -9,30 +9,26 @@ public class ExprosivePropan : MonoBehaviour
     [SerializeField] private GameObject m_fireParticle;
     [SerializeField] private ParticleSystem m_explosionParticle;
 
-    [SerializeField] private float m_distanceToDetect = 5.0f;
-    [SerializeField] private float m_distanceOfDamage = 20.0f;
+    [SerializeField] private float m_distanceToDetect = 20.0f;
+    [SerializeField] private float m_distanceOfDamage = 5.0f;
     [SerializeField] private float m_timeToDestroy;
 
 
     private void Update()
     {
-        if(Physics.SphereCast(transform.position, m_distanceToDetect, Vector3.back, out var hit))
-        {
-            if (hit.collider.tag == "Player")
-            {
-                Debug.Log("Player");
-                StartCoroutine(StartProcess());
-            }
-        }
+        CheckForPlayer();
     }
 
-
-    private void OnSomethingEnter(Collider other)
+    private void CheckForPlayer()
     {
-        if (!other.CompareTag("Player"))
-            return;
-
-        
+        if (Physics.SphereCast(transform.position, m_distanceToDetect, Vector3.back, out var hit))
+        {
+            if (!hit.collider.CompareTag("Player"))
+                return;
+            
+            StartCoroutine(StartProcess());
+ 
+        }
     }
 
     private IEnumerator StartProcess()
