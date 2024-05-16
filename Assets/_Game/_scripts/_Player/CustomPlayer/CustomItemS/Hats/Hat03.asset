@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 288c56fd3355fb44c8673813870a7171, type: 3}
   m_Name: Hat03
   m_EditorClassIdentifier: 
-  m_icon: {fileID: 21300000, guid: 73e58cf767460d941aa4bfee9deec22f, type: 3}
+  m_maleIcon: {fileID: 21300000, guid: 73e58cf767460d941aa4bfee9deec22f, type: 3}
+  m_femaleIcon: {fileID: 21300000, guid: 4c24e108088655f40b9bd63df26cc026, type: 3}
   m_name: Hat03
   m_type: 4
-  Icon: {fileID: 0}
+  m_isDefault: 0

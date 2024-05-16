@@ -14,12 +14,18 @@ public class CustomItemController : MonoBehaviour
         return m_itemSO;
     }
 
-    public void SetItemActive(CustomItemSO item)
+    public void SetItemActive(bool cond)
     {
-        if(item is null || (m_itemSO.IsDefault && item.IsDefault))
+        if(m_itemObject != null)
+            m_itemObject.SetActive(cond);
+    }
+
+    public void SetItemActive(CustomItemSO item, GenderType gender)
+    {
+        Debug.Log(gender);
+        if(item is null)
         {
-            if(item.Type.Equals(CustomItemType.SKIN))
-                m_itemObject.SetActive(true);
+
             return;
         }
 

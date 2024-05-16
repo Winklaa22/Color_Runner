@@ -5,10 +5,13 @@ using UnityEngine;
 
 public class CustomPlayerManager : SceneSingleton<CustomPlayerManager>, ISaveable
 {
-    [SerializeField] private CustomPlayerSlot[] m_slots;
+    [SerializeField] private CustomPlayerSlot[] m_maleSlots;
+    [SerializeField] private CustomPlayerSlot[] m_femaleSlots;
+    [SerializeField] private GenderType m_gender;
     [SerializeField] private CustomItemSO[] m_allItems;
-    public CustomPlayerSlot[] Slots => m_slots;
-    public delegate void OnItemChanged(CustomItemSO item);
+    public GenderType Gender => m_gender;
+    public CustomPlayerSlot[] Slots => Gender == GenderType.MALE ? m_maleSlots: m_femaleSlots;
+    public delegate void OnItemChanged(CustomItemSO item, GenderType gender);
     public OnItemChanged Entity_OnItemChanged;
 
     protected override void OnAwake()
@@ -17,52 +20,76 @@ public class CustomPlayerManager : SceneSingleton<CustomPlayerManager>, ISaveabl
         DontDestroyOnLoad(this.gameObject);
     }
 
+    public void ChangeGender(GenderType gender)
+    {
+        m_gender = gender;
+        var slots = gender == GenderType.MALE ? m_maleSlots : m_femaleSlots;
+        foreach(var slot in slots)
+        {
+            Entity_OnItemChanged?.Invoke(slot.ItemSO, m_gender);
+        }
+
+    }
+
     public void AddItem(CustomItemSO item)
     {
-        m_slots.First(x => x.Type == item.Type).ItemSO = item;
-        Entity_OnItemChanged?.Invoke(item);
+        Slots.First(x => x.Type == item.Type).ItemSO = item;
+        Entity_OnItemChanged?.Invoke(item, m_gender);
     }
 
     public object CaptureState()
     {
 
-        var names = new List<string>();
-
-        foreach(var slot in m_slots)
+        var maleNames = new List<string>();
+        var femaleNames = new List<string>();
+        foreach(var slot in m_maleSlots)
         {
-            names.Add(slot.ItemSO.name);
-            Debug.Log(slot.ItemSO.name);
+            maleNames.Add(slot.ItemSO.name);
+        }
+
+        foreach(var slot in m_femaleSlots)
+        {
+            femaleNames.Add(slot.ItemSO.name);
         }
 
         return new SaveData
         {
 
-            Slots = new SerializedList(names)
+            MaleSlots = new SerializedList(maleNames),
+            FemaleSlots = new SerializedList(femaleNames),
+            GenderIndex = (int) m_gender
         };
     }
 
     public void RestoreState(object state)
     {
         var saveData = (SaveData)state;
+        m_gender = (GenderType)saveData.GenderIndex;
 
-        if (saveData.Slots is null)
-            return;
-
-        foreach(var slot in saveData.Slots.List)
+        if (saveData.MaleSlots != null)
         {
-            Debug.Log(slot);
+            for (int i = 0; i < m_maleSlots.Length; i++)
+            {
+                m_maleSlots[i].ItemSO = m_allItems.First(x => x.name == saveData.MaleSlots.List[i]);
+            }
         }
 
-        for (int i = 0; i < m_slots.Length; i++)
+        if (saveData.FemaleSlots != null)
         {
-            m_slots[i].ItemSO = m_allItems.First(x => x.name == saveData.Slots.List[i]);
+            for (int i = 0; i < m_femaleSlots.Length; i++)
+            {
+                m_femaleSlots[i].ItemSO = m_allItems.First(x => x.name == saveData.FemaleSlots.List[i]);
+            }
         }
+        
     }
 
     [System.Serializable]
     private struct SaveData
     {
-        public SerializedList Slots;
+        public SerializedList MaleSlots;
+        public SerializedList FemaleSlots;
+        public int GenderIndex;
     }
 }
 

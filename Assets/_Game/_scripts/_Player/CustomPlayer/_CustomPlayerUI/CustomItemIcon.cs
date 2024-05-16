@@ -24,10 +24,10 @@ public class CustomItemIcon : MonoBehaviour
         m_eventTrigger.triggers.Add(entry);
     }
 
-    public void SetIcon(CustomItemSO item)
+    public void SetIcon(CustomItemSO item, GenderType gender)
     {
         m_itemSO = item;
-        m_icon.sprite = m_itemSO.Icon;
+        m_icon.sprite = gender == GenderType.MALE ? m_itemSO.MaleIcon : m_itemSO.FemaleIcon;
     }
 
     public void OnPointerDownDelegate()

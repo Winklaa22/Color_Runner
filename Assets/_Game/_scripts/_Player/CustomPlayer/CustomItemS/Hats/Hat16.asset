@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 288c56fd3355fb44c8673813870a7171, type: 3}
   m_Name: Hat16
   m_EditorClassIdentifier: 
-  m_icon: {fileID: 21300000, guid: 5bc6b6b93ab0098429ba729b07e72ece, type: 3}
+  m_maleIcon: {fileID: 21300000, guid: 5bc6b6b93ab0098429ba729b07e72ece, type: 3}
+  m_femaleIcon: {fileID: 21300000, guid: 4fc6fea56011f3f498400bbf23ec2055, type: 3}
   m_name: Hat16
   m_type: 4
-  Icon: {fileID: 0}
+  m_isDefault: 0

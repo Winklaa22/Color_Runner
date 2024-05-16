@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,11 @@ public class CustomPlayerScreen : View
 {
     [SerializeField] private Button m_backToMenuButton;
     [SerializeField] private TweenAnimator m_menuBackground;
+
+    [Header("Panels")]
+    [SerializeField] private TweenAnimator m_malePanel;
+    [SerializeField] private TweenAnimator m_femalePanel;
+
 
     protected override void OnAwake()
     {
@@ -18,6 +24,7 @@ public class CustomPlayerScreen : View
     {
         base.OnViewOpened();
         m_menuBackground.AnimationOut();
+        OpenPanel(CustomPlayerManager.Instance.Gender);
     }
 
     protected override void OnViewClosed()
@@ -31,5 +38,20 @@ public class CustomPlayerScreen : View
     {
         SaveDataManager.Instance.Save();
         ScreensManager.Instance.OpenScreen(ScreenType.MAIN_MENU);
+    }
+
+    public void OpenPanel(GenderType genderType)
+    {
+        switch (genderType)
+        {
+            case GenderType.MALE:
+                m_malePanel.AnimationIn();
+                m_femalePanel.AnimationOut();
+                break;
+            case GenderType.FEMALE:
+                m_femalePanel.AnimationIn();
+                m_malePanel.AnimationOut();
+                break;
+        }
     }
 }

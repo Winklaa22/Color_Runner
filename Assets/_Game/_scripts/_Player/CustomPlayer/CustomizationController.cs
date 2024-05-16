@@ -19,33 +19,40 @@ public class CustomizationController : MonoBehaviour
 
     private void Start()
     {
-        CustomPlayerManager.Instance.Entity_OnItemChanged += UpdateItem;
-        CustomPlayerManager.Instance.Slots.ToList().ForEach(x => UpdateItem(x.ItemSO));
+        var customManager = CustomPlayerManager.Instance;
+
+        customManager.Entity_OnItemChanged += UpdateItem;
+        customManager.Slots.ToList().ForEach(x => UpdateItem(x.ItemSO, customManager.Gender));
     }
 
-    private void UpdateItem(CustomItemSO itemSO)
+    private void UpdateItem(CustomItemSO itemSO, GenderType gender)
     {
+        if (gender == GenderType.FEMALE)
+            m_beards.ToList().ForEach(x => x.SetItemActive(false));
+
         switch (itemSO.Type)
         {
             case CustomItemType.SKIN:
-                m_skins.ToList().ForEach(x => x.SetItemActive(itemSO));
+                m_skins.ToList().ForEach(x => x.SetItemActive(itemSO, gender));
+
                 break;
 
             case CustomItemType.HAIR:
-                m_hairs.ToList().ForEach(x => x.SetItemActive(itemSO));
+                m_hairs.ToList().ForEach(x => x.SetItemActive(itemSO, gender));
+
                 break;
 
             case CustomItemType.HAT:
-                m_hats.ToList().ForEach(x => x.SetItemActive(itemSO));
+                m_hats.ToList().ForEach(x => x.SetItemActive(itemSO, gender));
                 break;
 
 
             case CustomItemType.BEARD:
-                m_beards.ToList().ForEach(x => x.SetItemActive(itemSO));
+                m_beards.ToList().ForEach(x => x.SetItemActive(itemSO, gender));
                 break;
 
             case CustomItemType.FACE_ACCESORIES:
-                m_accesories.ToList().ForEach(x => x.SetItemActive(itemSO));
+                m_accesories.ToList().ForEach(x => x.SetItemActive(itemSO, gender));
                 break;
         }
     }

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 288c56fd3355fb44c8673813870a7171, type: 3}
   m_Name: FaceAcc02
   m_EditorClassIdentifier: 
-  m_icon: {fileID: 21300000, guid: 16c1949a8c8a2024ea74a454bc8ee2b3, type: 3}
+  m_maleIcon: {fileID: 21300000, guid: 16c1949a8c8a2024ea74a454bc8ee2b3, type: 3}
+  m_femaleIcon: {fileID: 21300000, guid: 077e27dba2cafc3468e27381a95d4f12, type: 3}
   m_name: FaceAcc02
   m_type: 1
-  Icon: {fileID: 0}
+  m_isDefault: 0

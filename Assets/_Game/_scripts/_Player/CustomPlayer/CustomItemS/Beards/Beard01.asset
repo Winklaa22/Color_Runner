@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 288c56fd3355fb44c8673813870a7171, type: 3}
   m_Name: Beard01
   m_EditorClassIdentifier: 
-  m_icon: {fileID: 21300000, guid: ec3212ffe3b17f649a6624161025bfa4, type: 3}
+  m_maleIcon: {fileID: 21300000, guid: ec3212ffe3b17f649a6624161025bfa4, type: 3}
+  m_femaleIcon: {fileID: 0}
   m_name: Beard01
   m_type: 3
-  Icon: {fileID: 0}
+  m_isDefault: 0
