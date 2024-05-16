@@ -12,7 +12,7 @@ public class CustomPlayerScreen : View
     [Header("Panels")]
     [SerializeField] private TweenAnimator m_malePanel;
     [SerializeField] private TweenAnimator m_femalePanel;
-
+    private GenderType m_currentPanel;
 
     protected override void OnAwake()
     {
@@ -24,14 +24,22 @@ public class CustomPlayerScreen : View
     {
         base.OnViewOpened();
         m_menuBackground.AnimationOut();
-        OpenPanel(CustomPlayerManager.Instance.Gender);
+        m_currentPanel = CustomPlayerManager.Instance.Gender;
+
+        if (m_currentPanel == GenderType.MALE)
+            m_malePanel.AnimationIn();
+        else
+            m_femalePanel.AnimationIn();
     }
 
     protected override void OnViewClosed()
     {
         base.OnViewClosed();
         m_menuBackground.AnimationIn();
-
+        if (m_currentPanel == GenderType.MALE)
+            m_malePanel.AnimationOut();
+        else
+            m_femalePanel.AnimationOut();
     }
 
     private void OnBackToMenuButtonClicked()
@@ -42,6 +50,7 @@ public class CustomPlayerScreen : View
 
     public void OpenPanel(GenderType genderType)
     {
+        m_currentPanel = genderType;
         switch (genderType)
         {
             case GenderType.MALE:
