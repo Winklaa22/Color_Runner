@@ -10,7 +10,9 @@ public class CustomItemSO : ScriptableObject
     [SerializeField] private Sprite m_femaleIcon;
     [SerializeField] private string m_name;
     [SerializeField] private CustomItemType m_type;
+    [SerializeField] private int m_price;
     [SerializeField] private bool m_nonUnisex;
+    
 
     [ShowIf(nameof(m_nonUnisex))]
     [SerializeField] private GenderType m_gender;

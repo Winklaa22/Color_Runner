@@ -12,6 +12,8 @@ public class CustomItemIcon : MonoBehaviour
         get => m_itemSO;
     }
 
+    private bool IsUnlocked => CustomPlayerManager.Instance.IsItemUnlocked(m_itemSO.name);
+
     [SerializeField] private Image m_icon;
     [SerializeField] private CanvasGroup m_lockCanvas;
     [SerializeField] private EventTrigger m_eventTrigger;
@@ -24,14 +26,18 @@ public class CustomItemIcon : MonoBehaviour
         m_eventTrigger.triggers.Add(entry);
     }
 
+    
+
     public void SetIcon(CustomItemSO item, GenderType gender)
     {
         m_itemSO = item;
         m_icon.sprite = gender == GenderType.MALE ? m_itemSO.MaleIcon : m_itemSO.FemaleIcon;
+        m_lockCanvas.alpha = IsUnlocked ? 0 : 1;
     }
 
     public void OnPointerDownDelegate()
     {
-        CustomPlayerManager.Instance.AddItem(m_itemSO);
+        if(IsUnlocked)
+            CustomPlayerManager.Instance.AddItem(m_itemSO);
     }
 }

@@ -44,23 +44,61 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 089e4756743e98f4ca1ea380c2fe674c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  platformList:
-  - probabilityNumber: 1
+  m_platformTypes:
+  - m_index: 0
     m_platforms:
-    - {fileID: 1646474532696695307, guid: 8883ea8a265e0824a9ab7fbff436da4b, type: 3}
-    - {fileID: 1646474532696695307, guid: da4ba25360411f142bdf43fe11ad50eb, type: 3}
-  - probabilityNumber: 1
+    - m_probilityNumber: 0.9
+      m_model: {fileID: 1646474532696695307, guid: 8883ea8a265e0824a9ab7fbff436da4b,
+        type: 3}
+    - m_probilityNumber: 0.2
+      m_model: {fileID: 1646474532696695307, guid: da4ba25360411f142bdf43fe11ad50eb,
+        type: 3}
+    - m_probilityNumber: 0.2
+      m_model: {fileID: 6669203049841439046, guid: b93395fccc3afe54491aa4494ad0a8fc,
+        type: 3}
+  - m_index: 1
     m_platforms:
-    - {fileID: 6669203049841439046, guid: b93395fccc3afe54491aa4494ad0a8fc, type: 3}
-    - {fileID: 1029958078973135090, guid: 6a75fffb343493b48915660fca845672, type: 3}
-    - {fileID: 1226255945483092301, guid: c2211a6d4e7c6db4496eac9424a3c249, type: 3}
-  m_environmentPrefab: {fileID: 2789236820957835886, guid: e16efcaf73576574fb7b595fba906ade,
-    type: 3}
-  m_plaforms:
+    - m_probilityNumber: 0.9
+      m_model: {fileID: 8446596958373154572, guid: e8c19098200b8b247a2d6d8794b7bed3,
+        type: 3}
+    - m_probilityNumber: 0.2
+      m_model: {fileID: 8446596958373154572, guid: ae0da15e4a82a6940bd68be4d4a7b391,
+        type: 3}
+  - m_index: 2
+    m_platforms:
+    - m_probilityNumber: 0.9
+      m_model: {fileID: 1226255945483092301, guid: c2211a6d4e7c6db4496eac9424a3c249,
+        type: 3}
+    - m_probilityNumber: 0.2
+      m_model: {fileID: 1029958078973135090, guid: 6a75fffb343493b48915660fca845672,
+        type: 3}
+  - m_index: 3
+    m_platforms:
+    - m_probilityNumber: 0.9
+      m_model: {fileID: 1646474532696695307, guid: 8883ea8a265e0824a9ab7fbff436da4b,
+        type: 3}
+    - m_probilityNumber: 0.2
+      m_model: {fileID: 1646474532696695307, guid: da4ba25360411f142bdf43fe11ad50eb,
+        type: 3}
+    - m_probilityNumber: 0.2
+      m_model: {fileID: 6669203049841439046, guid: b93395fccc3afe54491aa4494ad0a8fc,
+        type: 3}
+  m_environmentPrefabs:
+  - {fileID: 2789236820957835886, guid: 81292c084add34c448942313e7c15b26, type: 3}
+  - {fileID: 2789236820957835886, guid: 0582a75d5939e9e40874754e5a3af62e, type: 3}
+  - {fileID: 2789236820957835886, guid: a392de0718feaf4498b5c391b1a4412e, type: 3}
+  - {fileID: 2789236820957835886, guid: f0e97ceac6767c6418edde6d486f22f9, type: 3}
+  - {fileID: 2789236820957835886, guid: f4ef7cf454d6ad8478c9e492bb70ae64, type: 3}
+  - {fileID: 2789236820957835886, guid: 96f7345219167c243bf29afa9be5e3ab, type: 3}
+  - {fileID: 2789236820957835886, guid: e16efcaf73576574fb7b595fba906ade, type: 3}
+  _environments:
   - {fileID: 0}
-  m_environments:
+  _platforms:
   - {fileID: 0}
   _lastNumberOfPlatform: 0
+  _lastPlatform:
+    m_probilityNumber: 0
+    m_model: {fileID: 0}
   m_platformSpeed: 7.92
   m_spawningDelay: 1
   m_platformCount: 10

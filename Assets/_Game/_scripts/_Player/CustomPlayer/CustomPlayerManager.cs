@@ -9,8 +9,10 @@ public class CustomPlayerManager : SceneSingleton<CustomPlayerManager>, ISaveabl
     [SerializeField] private CustomPlayerSlot[] m_femaleSlots;
     [SerializeField] private GenderType m_gender;
     [SerializeField] private CustomItemSO[] m_allItems;
+    [SerializeField] private List<CustomItemSO> m_playersItems;
     public GenderType Gender => m_gender;
     public CustomPlayerSlot[] Slots => Gender == GenderType.MALE ? m_maleSlots: m_femaleSlots;
+
     public delegate void OnItemChanged(CustomItemSO item, GenderType gender);
     public OnItemChanged Entity_OnItemChanged;
 
@@ -18,6 +20,12 @@ public class CustomPlayerManager : SceneSingleton<CustomPlayerManager>, ISaveabl
     {
         base.OnAwake();
         DontDestroyOnLoad(this.gameObject);
+    }
+
+    protected override void OnStart()
+    {
+        base.OnStart();
+        GetAllDefaultItems();
     }
 
     public void ChangeGender(GenderType gender)
@@ -31,6 +39,19 @@ public class CustomPlayerManager : SceneSingleton<CustomPlayerManager>, ISaveabl
 
     }
 
+    private void GetAllDefaultItems()
+    {
+        foreach(var item in m_allItems)
+        {
+            if(item.IsDefault && !m_playersItems.Contains(item))
+            {
+                m_playersItems.Add(item);
+            }
+        }
+    }
+
+    public bool IsItemUnlocked(string name) => m_playersItems.Any(x => x.name == name);
+
     public void AddItem(CustomItemSO item)
     {
         Slots.First(x => x.Type == item.Type).ItemSO = item;
@@ -40,23 +61,16 @@ public class CustomPlayerManager : SceneSingleton<CustomPlayerManager>, ISaveabl
     public object CaptureState()
     {
 
-        var maleNames = new List<string>();
-        var femaleNames = new List<string>();
-        foreach(var slot in m_maleSlots)
-        {
-            maleNames.Add(slot.ItemSO.name);
-        }
-
-        foreach(var slot in m_femaleSlots)
-        {
-            femaleNames.Add(slot.ItemSO.name);
-        }
+        var maleNames = m_maleSlots.Select(slot => slot.ItemSO.name).ToList();
+        var femaleNames = m_femaleSlots.Select(slot => slot.ItemSO.name).ToList();
+        var playersItemsNames = m_playersItems.Count > 0 ? m_playersItems.Select(item => item.name).ToList() : new List<string>();
 
         return new SaveData
         {
 
             MaleSlots = new SerializedList(maleNames),
             FemaleSlots = new SerializedList(femaleNames),
+            PlayersItems = new SerializedList(playersItemsNames),
             GenderIndex = (int) m_gender
         };
     }
@@ -81,7 +95,19 @@ public class CustomPlayerManager : SceneSingleton<CustomPlayerManager>, ISaveabl
                 m_femaleSlots[i].ItemSO = m_allItems.First(x => x.name == saveData.FemaleSlots.List[i]);
             }
         }
-        
+
+        if (saveData.PlayersItems != null)
+        {
+            foreach(var item in saveData.PlayersItems.List)
+            {
+                if (m_playersItems.Any(x => x.name == item) || m_allItems.All(x => x.name != item))
+                    continue;
+
+                m_playersItems.Add(m_allItems.First(x => x.name == item));
+            }
+        }
+
+
     }
 
     [System.Serializable]
@@ -89,6 +115,7 @@ public class CustomPlayerManager : SceneSingleton<CustomPlayerManager>, ISaveabl
     {
         public SerializedList MaleSlots;
         public SerializedList FemaleSlots;
+        public SerializedList PlayersItems;
         public int GenderIndex;
     }
 }
