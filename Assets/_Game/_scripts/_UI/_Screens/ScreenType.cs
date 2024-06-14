@@ -10,5 +10,6 @@ public enum ScreenType
     MAIN_MENU = 3,
     CUSTOM_PLAYER_SCREEN = 4,
     RANKING_SCREEN = 5,
-    PAUSE_SCREEN = 6
+    PAUSE_SCREEN = 6,
+    SHOP_SCREEN = 7
 }

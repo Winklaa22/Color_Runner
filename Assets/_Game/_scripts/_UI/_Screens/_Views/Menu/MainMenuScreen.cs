@@ -10,17 +10,24 @@ public class MainMenuScreen : View
     [SerializeField] private Button m_playButton;
     [SerializeField] private Button m_customPlayerButton;
     [SerializeField] private Button m_rankingButton;
+    [SerializeField] private Button m_shopButton;
 
     protected override void OnAwake()
     {
         base.OnAwake();
         m_playButton.onClick.AddListener(OnPlayButtonClicked);
         m_customPlayerButton.onClick.AddListener(OnCustomPlayerButtonClicked);
+        m_shopButton.onClick.AddListener(OnShopButtonClicked);
     }
 
     private void OnCustomPlayerButtonClicked()
     {
         ScreensManager.Instance.OpenScreen(ScreenType.CUSTOM_PLAYER_SCREEN);
+    }
+
+    public void OnShopButtonClicked()
+    {
+        ScreensManager.Instance.OpenScreen(ScreenType.SHOP_SCREEN);
     }
 
     private IEnumerator WaitForPlay()

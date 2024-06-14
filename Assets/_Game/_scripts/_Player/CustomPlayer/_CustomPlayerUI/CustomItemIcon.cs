@@ -32,12 +32,12 @@ public class CustomItemIcon : MonoBehaviour
     {
         m_itemSO = item;
         m_icon.sprite = gender == GenderType.MALE ? m_itemSO.MaleIcon : m_itemSO.FemaleIcon;
-        m_lockCanvas.alpha = IsUnlocked ? 0 : 1;
+        //m_lockCanvas.alpha = IsUnlocked ? 0 : 1;
     }
 
     public void OnPointerDownDelegate()
     {
-        if(IsUnlocked)
+        //if(IsUnlocked)
             CustomPlayerManager.Instance.AddItem(m_itemSO);
     }
 }

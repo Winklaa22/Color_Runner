@@ -5,9 +5,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ScrollSwipeHandler : MonoBehaviour, IDragHandler, IEndDragHandler
+public class ScrollSwipeHandler : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler
 {
-    public event Action PageChanged;
+    public delegate void OnPageChanged(int page);
+    public event OnPageChanged Entity_OnPageChanged;
+    public event Action OnSwipingStart;
 
     [SerializeField] private Transform m_swipePanel;
     [SerializeField] private float m_space = 700f;
@@ -16,6 +18,7 @@ public class ScrollSwipeHandler : MonoBehaviour, IDragHandler, IEndDragHandler
     [SerializeField] private int m_countOfPages = 3;
     [SerializeField] private int currentPage = 1;
     [SerializeField] private float m_sensivity = 1;
+    private bool _isDragging;
 
     [Header("Tween")]
     [SerializeField] private float m_tweenDuration = .3f;
@@ -82,6 +85,7 @@ public class ScrollSwipeHandler : MonoBehaviour, IDragHandler, IEndDragHandler
     private void SwipeToPreviousLocation()
     {
         m_swipePanel.DOLocalMoveY(m_panelYLocation, m_tweenDuration).SetEase(m_tweenEase);
+        Entity_OnPageChanged.Invoke(currentPage);
     }
 
     private void SwipeToNewLocation(float yAxis)
@@ -89,6 +93,26 @@ public class ScrollSwipeHandler : MonoBehaviour, IDragHandler, IEndDragHandler
         var newLocation = m_panelYLocation + yAxis;
         m_swipePanel.DOLocalMoveY(newLocation, m_tweenDuration).SetEase(m_tweenEase);
         m_panelYLocation = newLocation;
+        Entity_OnPageChanged.Invoke(currentPage);
     }
 
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        _isDragging = true;
+        StartCoroutine(WaitForDragging());
+    }
+
+    private IEnumerator WaitForDragging()
+    {
+        while(m_swipePanel.localPosition.y == m_panelYLocation)
+        {
+            if (!_isDragging)
+                yield break;
+
+
+            yield return null;
+        }
+
+        OnSwipingStart.Invoke();
+    }
 }
