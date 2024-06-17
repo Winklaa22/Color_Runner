@@ -1,11 +1,14 @@
 using CustomInspector;
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TweenAnimator : MonoBehaviour
 {
+    public event Action OnAnimationCompleted;
+
     [Header("Atributtes")]
     [SerializeField] private float m_dutation;
     public float Duration => m_dutation;
@@ -30,13 +33,13 @@ public class TweenAnimator : MonoBehaviour
         if (m_useFade)
         {
             m_canvasGroup.alpha = m_startFadeValue;
-            m_canvasGroup.DOFade(m_endFadeValue, m_dutation).SetEase(m_ease).SetUpdate(true);
+            m_canvasGroup.DOFade(m_endFadeValue, m_dutation).SetEase(m_ease).SetUpdate(true).OnComplete(() => { OnAnimationCompleted?.Invoke(); });
         }
 
         if (m_useMovement)
         {
             m_rectTranform.anchoredPosition = m_startMovePosition;
-            m_rectTranform.DOAnchorPos(m_endMovePosition, m_dutation).SetEase(m_ease).SetUpdate(true);
+            m_rectTranform.DOAnchorPos(m_endMovePosition, m_dutation).SetEase(m_ease).SetUpdate(true).OnComplete(() => { OnAnimationCompleted?.Invoke(); });
         }
     }
 
@@ -46,14 +49,14 @@ public class TweenAnimator : MonoBehaviour
         {
             m_canvasGroup.alpha = m_endFadeValue;
 
-            m_canvasGroup.DOFade(m_startFadeValue, m_dutation).SetEase(m_ease).SetUpdate(true);
+            m_canvasGroup.DOFade(m_startFadeValue, m_dutation).SetEase(m_ease).SetUpdate(true).OnComplete(() => { OnAnimationCompleted?.Invoke(); });
         }
 
         if (m_useMovement)
         {
             m_rectTranform.anchoredPosition = m_endMovePosition;
 
-            m_rectTranform.DOAnchorPos(m_startMovePosition, m_dutation).SetEase(m_ease).SetUpdate(true);
+            m_rectTranform.DOAnchorPos(m_startMovePosition, m_dutation).SetEase(m_ease).SetUpdate(true).OnComplete(() => { OnAnimationCompleted?.Invoke(); });
         }
     }
 }

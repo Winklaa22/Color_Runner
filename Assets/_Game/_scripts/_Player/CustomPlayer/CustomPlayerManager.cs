@@ -52,6 +52,11 @@ public class CustomPlayerManager : SceneSingleton<CustomPlayerManager>, ISaveabl
 
     public bool IsItemUnlocked(string name) => m_playersItems.Any(x => x.name == name);
 
+    public void SetItemUnlocked(CustomItemSO item)
+    {
+        m_playersItems.Add(item);
+    }
+
     public void AddItem(CustomItemSO item)
     {
         Slots.First(x => x.Type == item.Type).ItemSO = item;

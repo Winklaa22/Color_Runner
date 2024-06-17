@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,7 @@ public class CustomPlayerUI : MonoBehaviour
     {
         public CustomItemType Type;
         public Button NavigationButton;
+        public CustomPlayerCategoryController Controller;
         public float XPosition;
     }
 
@@ -28,6 +30,11 @@ public class CustomPlayerUI : MonoBehaviour
     private void MoveToCategory(float position)
     {
         m_rectTransform.DOLocalMoveX(position, 0.3f);
+    }
+
+    public void RefreshIconsInEachCategory()
+    {
+        m_categories.ToList().ForEach(x => x.Controller.RefreshAllIcons());
     }
 }
 

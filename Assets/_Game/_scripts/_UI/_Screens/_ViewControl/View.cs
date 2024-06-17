@@ -17,6 +17,9 @@ public abstract class View : MonoBehaviour, IView
     [Header("Animations")]
     [SerializeField] private bool m_useAnimations;
     [SerializeField] private List<TweenAnimator> m_animators;
+    [SerializeField] private bool m_diffrentForInOut;
+    [SerializeField] private List<TweenAnimator> m_inAnimations;
+    [SerializeField] private List<TweenAnimator> m_outAnimations;
 
     //Events
     public delegate void OnOpen();
@@ -51,10 +54,10 @@ public abstract class View : MonoBehaviour, IView
         m_view.SetActive(true);
         if (m_useAnimations)
         {
-            foreach (var animator in m_animators)
-            {
-                animator.AnimationIn();
-            }
+            if(m_diffrentForInOut)
+                m_inAnimations.ForEach(animator => animator.AnimationIn());
+            else
+                m_animators.ForEach(animator => animator.AnimationIn());
         }
     }
 
@@ -84,10 +87,10 @@ public abstract class View : MonoBehaviour, IView
     private IEnumerator CloseWithAnimations()
     {
         var duration = GetMaximalDurationOfAnimations();
-        foreach (var animator in m_animators)
-        {
-            animator.AnimationOut();
-        }
+        if (m_diffrentForInOut)
+            m_outAnimations.ForEach(animator => animator.AnimationOut());
+        else
+            m_animators.ForEach(animator => animator.AnimationOut());
         yield return new WaitForSecondsRealtime(duration);
         m_view.SetActive(false);
 

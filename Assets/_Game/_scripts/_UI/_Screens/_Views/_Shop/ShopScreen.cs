@@ -29,6 +29,11 @@ public class ShopScreen : View
         };
     }
 
+    public void OpenDrawScreen()
+    {
+        ScreensManager.Instance.OpenScreen(ScreenType.DRAW_SCREEN);
+    }
+
     private void BackToMenu()
     {
         ScreensManager.Instance.OpenScreen(ScreenType.MAIN_MENU);

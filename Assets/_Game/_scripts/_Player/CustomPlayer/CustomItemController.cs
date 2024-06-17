@@ -22,7 +22,6 @@ public class CustomItemController : MonoBehaviour
 
     public void SetItemActive(CustomItemSO item, GenderType gender)
     {
-        Debug.Log(gender);
         if(item is null)
         {
 

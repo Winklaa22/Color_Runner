@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,9 @@ public class CustomPlayerScreen : View
 
     [Header("Panels")]
     [SerializeField] private TweenAnimator m_malePanel;
+    [SerializeField] private CustomPlayerUI m_malePanelController;
     [SerializeField] private TweenAnimator m_femalePanel;
+    [SerializeField] private CustomPlayerUI m_femalePanelController;
     private GenderType m_currentPanel;
 
     protected override void OnAwake()
@@ -26,21 +29,35 @@ public class CustomPlayerScreen : View
         m_menuBackground.AnimationOut();
         m_currentPanel = CustomPlayerManager.Instance.Gender;
 
+
         if (m_currentPanel == GenderType.MALE)
+        {
             m_malePanel.AnimationIn();
+            m_malePanelController.RefreshIconsInEachCategory();
+        }
         else
+        {
             m_femalePanel.AnimationIn();
+            m_femalePanelController.RefreshIconsInEachCategory();
+        }
     }
 
     protected override void OnViewClosed()
     {
         base.OnViewClosed();
+
         m_menuBackground.AnimationIn();
         if (m_currentPanel == GenderType.MALE)
+        {
             m_malePanel.AnimationOut();
+        }
         else
+        {
             m_femalePanel.AnimationOut();
+        }
+            
     }
+
 
     private void OnBackToMenuButtonClicked()
     {

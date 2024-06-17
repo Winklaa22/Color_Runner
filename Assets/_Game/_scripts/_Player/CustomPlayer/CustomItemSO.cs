@@ -24,6 +24,11 @@ public class CustomItemSO : ScriptableObject
     public CustomItemType Type => m_type;
     public bool IsDefault => m_isDefault;
 
+    public Sprite GetIconToDraw ()
+    {
+        return m_maleIcon == null ? m_femaleIcon : m_maleIcon;
+    }
+
     public bool CheckGender(GenderType currGender)
     {
         return m_nonUnisex && currGender != m_gender;

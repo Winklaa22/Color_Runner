@@ -8,6 +8,7 @@ public class CustomPlayerCategoryController : MonoBehaviour
     [SerializeField] private CustomItemIcon m_iconPrefab;
     [SerializeField] private Transform m_content;
     [SerializeField] private GenderType m_gender;
+    private List<CustomItemIcon> _icons = new List<CustomItemIcon>();
 
     private void Start()
     {
@@ -20,6 +21,13 @@ public class CustomPlayerCategoryController : MonoBehaviour
         {
             var icon = Instantiate(m_iconPrefab, m_content);
             icon.SetIcon(item, m_gender);
+            _icons.Add(icon);
         }
+    }
+
+    public void RefreshAllIcons()
+    {
+        if(_icons.Count > 0)
+            _icons.ForEach(x => x.Refresh());
     }
 }

@@ -42,7 +42,7 @@ public class ScrollSwipeHandler : MonoBehaviour, IDragHandler, IEndDragHandler, 
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        var percentage = (eventData.pressPosition.y - eventData.position.y) / UnityEngine.Screen.height;
+        var percentage = (eventData.pressPosition.y - eventData.position.y) / Screen.height;
 
         
         if(Math.Abs(percentage) >= m_percentThreshold)
