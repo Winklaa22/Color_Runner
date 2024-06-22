@@ -7,18 +7,38 @@ using UnityEngine.UI;
 
 public class DrawSkinScreen : View
 {
+    [Header("Draw system")]
+    [SerializeField] private int m_drawingTimes = 100;
+    [SerializeField] private float m_percentToSlowdown = 80.0f;
+
+    [Header("Sequence delays")]
+    [SerializeField] private float m_startDrawDelay = .05f;
+    [SerializeField] private float m_slowingdownDrawDelay = .01f;
+    [SerializeField] private float m_timeToShowDraw = 1.5f;
+    [SerializeField] private float m_drawnTextDuration = 2.0f;
+    [SerializeField] private float m_delayToShowButtons = .2f;
+
+    [Header("Icon Fade animations")]
+    [SerializeField] private float m_iconFadeInDuration = 4.0f;
+    [SerializeField] private float m_iconFadeOutDuration = .5f;
+
+    [Header("Icon Scale animation")]
+    [SerializeField] private float m_iconScaleUpDownDuration = .3f;
+    [SerializeField] private float m_iconScaleUpValue = 1.5f;
+    [SerializeField] private float m_iconPrimaryScaleValue = 1.0f;
+
     [Header("Drawing panel")]
     [SerializeField] private TMP_Text m_packName;
     [SerializeField] private Image m_icon;
     [SerializeField] private Transform m_iconTranform;
     [SerializeField] private TweenAnimator m_questionMarkIcon;
-    [SerializeField] private DrawController m_drawController;
     [SerializeField] private Button m_drawButton;
 
 
     [Header("After draw")]
     [SerializeField] private TMP_Text m_drawnText;
     [SerializeField] private TweenAnimator m_drawnTextAnimator;
+    [TextArea(5, 5)]
     [SerializeField] private string[] m_drawnTextVariances;
     [SerializeField] private TweenAnimator m_tryAgainButton;
     [SerializeField] private TweenAnimator m_goToMenuButton;
@@ -51,7 +71,7 @@ public class DrawSkinScreen : View
     {
         base.OnViewClosed();
         m_iconTranform.DOScale(1f, .5f).SetEase(Ease.InOutExpo);
-        _iconCanvas.DOFade(0, .3f).SetEase(Ease.InOutExpo);
+        
         m_questionMarkIcon.AnimationIn();
     }
 
@@ -71,8 +91,8 @@ public class DrawSkinScreen : View
         m_tryAgainButton.AnimationOut();
         m_goToMenuButton.AnimationOut();
         m_packNameAnimator.AnimationIn();
-        m_iconTranform.DOScale(1f, .5f).SetEase(Ease.InOutExpo);
-        _iconCanvas.DOFade(0, .3f).SetEase(Ease.InOutExpo);
+        m_iconTranform.DOScale(m_iconPrimaryScaleValue, m_iconScaleUpDownDuration).SetEase(Ease.InOutExpo);
+        SetIconFadeOut();
         m_questionMarkIcon.AnimationIn();
         _drawButtonCanvas.DOFade(1, 0.3f).SetEase(Ease.InOutExpo);
         m_drawButton.interactable = true;
@@ -89,33 +109,38 @@ public class DrawSkinScreen : View
 
         m_questionMarkIcon.AnimationOut();
         yield return new WaitForSeconds(m_questionMarkIcon.Duration);
-        _iconCanvas.DOFade(1f, 4.0f);
+        _iconCanvas.DOFade(1.0f, m_iconFadeInDuration);
 
         var pack = DrawManager.Instance.GetCurrentPack();
-        var time = 0.05f;
+        var time = m_startDrawDelay;
         CustomItemSO randomSkin = null;
 
-        for (int i = 0; i <= 100; i++)
+        for (int i = 0; i <= m_drawingTimes; i++)
         {
             randomSkin = pack.Items[Random.Range(0, pack.Items.Length - 1)];
             m_icon.sprite = randomSkin.GetIconToDraw();
             yield return new WaitForSeconds(time);
 
-            if (i > 80)
-                time += 0.01f;
+            if (i > (m_drawingTimes * (m_percentToSlowdown / 100)))
+                time += m_slowingdownDrawDelay;
         }
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(m_timeToShowDraw);
         m_packNameAnimator.AnimationOut();
-        m_iconTranform.DOScale(1.5f, .5f).SetEase(Ease.InOutExpo);
-        m_drawnText.text = CustomPlayerManager.Instance.IsItemUnlocked(randomSkin.name) ? m_drawnTextVariances[0] : m_drawnTextVariances[1];
+        m_iconTranform.DOScale(m_iconScaleUpValue, m_iconScaleUpDownDuration).SetEase(Ease.InOutExpo);
+        m_drawnText.text = CustomPlayerManager.Instance.IsItemUnlocked(randomSkin.name) ? m_drawnTextVariances[0] : m_drawnTextVariances [1];
         CustomPlayerManager.Instance.SetItemUnlocked(randomSkin);
         m_drawnTextAnimator.AnimationIn();
         
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(m_drawnTextDuration); 
         m_drawnTextAnimator.AnimationOut();
-        yield return new WaitForSeconds(.2f);
+        yield return new WaitForSeconds(m_delayToShowButtons);
         m_tryAgainButton.AnimationIn();
         m_goToMenuButton.AnimationIn();
+    }
+
+    private void SetIconFadeOut()
+    {
+        _iconCanvas.DOFade(0, m_iconFadeOutDuration).SetEase(Ease.InOutExpo);
     }
 }
