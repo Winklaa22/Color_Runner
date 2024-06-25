@@ -63,7 +63,8 @@ public class DrawSkinScreen : View
         _drawButtonCanvas.DOKill();
         m_drawButton.interactable = true;
         _drawButtonCanvas.alpha = 1;
-        m_packName.text = DrawManager.Instance.GetCurrentPack().Name;;
+        m_packName.text = DrawManager.Instance.GetCurrentPack().Name;
+        ShopManager.Instance.Entity_OnVirtualProductHasBought += OnProductHasBought;
 
     }
 
@@ -86,7 +87,27 @@ public class DrawSkinScreen : View
         StartCoroutine(DrawingProcess());
     }
 
-    public void TryAgain()
+    public void OnTryAgainButton()
+    {
+        ShopManager.Instance.BuyProduct(ProductType.NORMAL_DRAW_PACK);
+    }
+
+    private void OnProductHasBought(ProductSO product)
+    {
+        if(product.Type == ProductType.NORMAL_DRAW_PACK)
+        {
+            if(PlayerDataManager.Instance.Coins >= product.Cost)
+            {
+                TryAgain();
+            }
+            else
+            {
+                UIManager.Instance.ShowWarningPopup("You not have enoght coins");
+            }
+        }
+    }
+
+    private void TryAgain()
     {
         m_tryAgainButton.AnimationOut();
         m_goToMenuButton.AnimationOut();

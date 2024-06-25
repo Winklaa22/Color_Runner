@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 639eed623711bce45b50b6b62700b6fb, type: 3}
   m_Name: newProduct
   m_EditorClassIdentifier: 
-  m_id: 
+  id: 70f769ac-93c6-4c91-8c29-37a51907ec6c
+  productName: New Product
+  m_type: 0
+  paymentType: 0
+  cost: 600

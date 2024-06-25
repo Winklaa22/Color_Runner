@@ -1,18 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TweenAnimationsController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private TweenAnimator[] m_animators;
+
+    
+    public void AnimationsIn()
     {
-        
+        foreach(var animator in m_animators)
+        {
+            animator.AnimationIn();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AnimationsOut()
     {
-        
+        foreach(var animator in m_animators)
+        {
+            animator.AnimationOut();
+        }
     }
+
+    public float GetMaximalDurationOfAnimations() => m_animators.OrderByDescending(obj => obj.Duration).First().Duration;
+
 }

@@ -1,5 +1,5 @@
 public enum PaymentType
 {
     VIRTUAL = 0,
-    REAL_MONEY = 1
+    INAPP = 1
 }

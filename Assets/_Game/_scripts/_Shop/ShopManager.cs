@@ -1,18 +1,42 @@
-using System.Collections;
-using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class ShopManager : MonoBehaviour
+public class ShopManager : SceneSingleton<ShopManager>
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private ProductSO[] m_allProducts;
+
+    public delegate void OnVirtualProductHasBought(ProductSO product);
+    public event OnVirtualProductHasBought Entity_OnVirtualProductHasBought;
+
+
+    public void BuyProduct(ProductType type)
     {
-        
+        var product = m_allProducts.First(x => x.Type == type);
+
+        switch (product.PaymentType)
+        {
+            case PaymentType.VIRTUAL:
+                BuyVirtualProduct(product);
+                break;
+
+
+            case PaymentType.INAPP:
+                BuyInappProduct(product);
+                break;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public ProductSO GetProduct(ProductType type)
     {
-        
+        return m_allProducts.First(x => x.Type == type);
+    }
+    private void BuyVirtualProduct(ProductSO product)
+    {
+        Entity_OnVirtualProductHasBought?.Invoke(product);
+    }
+
+    private void BuyInappProduct(ProductSO product)
+    {
+
     }
 }

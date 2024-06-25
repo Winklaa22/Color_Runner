@@ -25,8 +25,9 @@ public class DeathCollectCoinsPopup : View
     protected override void OnStart()
     {
         base.OnStart();
-        m_coinsCounter.OnFinishedFilling_Entity += delegate
+        m_coinsCounter.Entity_OnFinishedFilling += delegate
         {
+            GameManager.Instance.CollectCoins();
             Invoke(nameof(ChangeScreen), 1.5f);
         };
     }
@@ -54,7 +55,7 @@ public class DeathCollectCoinsPopup : View
     public void OnNormalCollectButtonClicked()
     {
         TurnOffButtons();
-        m_coinsCounter.UpdateCoinsCount();
+        m_coinsCounter.UpdateGameCoinsCount();
     }
 
     public void OnRewardedCollectButtonClicked()
@@ -64,7 +65,7 @@ public class DeathCollectCoinsPopup : View
         IronSourceManager.Instance.Entity_OnRewardedAdWatched += () =>
         {
             GameManager.Instance.AddRewaredCoins();
-            m_coinsCounter.UpdateCoinsCount();
+            m_coinsCounter.UpdateGameCoinsCount();
         };
     }
 

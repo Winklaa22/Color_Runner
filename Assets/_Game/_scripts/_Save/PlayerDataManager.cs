@@ -25,6 +25,16 @@ public class PlayerDataManager : SceneSingleton<PlayerDataManager>, ISaveable
         _coins += coins;
     }
 
+    public bool HasEnoughCoinsForPayment(int cost)
+    {
+        return _coins >= cost;
+    }
+
+    public void SubtractCoins(int coins)
+    {
+        _coins -= Mathf.Clamp(_coins - coins, 0, _coins);
+    }
+
 
     public object CaptureState()
     {

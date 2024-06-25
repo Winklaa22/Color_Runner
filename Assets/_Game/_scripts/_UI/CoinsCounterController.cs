@@ -7,8 +7,13 @@ public class CoinsCounterController : MonoBehaviour
     [SerializeField] private TMP_Text m_counter;
     [SerializeField] private float m_timeOfFilling = 3.0f;
     public delegate void OnFinishedFilling();
-    public OnFinishedFilling OnFinishedFilling_Entity;
+    public OnFinishedFilling Entity_OnFinishedFilling;
 
+
+    private void Awake()
+    {
+        ShopManager.Instance.Entity_OnVirtualProductHasBought += OnProductBought;
+    }
 
     private void Start()
     {
@@ -20,9 +25,19 @@ public class CoinsCounterController : MonoBehaviour
         m_counter.text = PlayerDataManager.Instance.Coins.ToString();
     }
 
-    public void UpdateCoinsCount()
+    public void UpdateGameCoinsCount()
     {
         StartCoroutine(UpdateCoinsCounter(GameManager.Instance.Coins));
+    }
+
+    public void OnProductBought(ProductSO product)
+    {
+        StartCoroutine(UpdateCoinsCounter(-product.Cost));
+
+        Entity_OnFinishedFilling += () =>
+        {
+            PlayerDataManager.Instance.SubtractCoins(product.Cost);
+        };
     }
 
 
@@ -39,8 +54,7 @@ public class CoinsCounterController : MonoBehaviour
         }
 
 
-        GameManager.Instance.CollectCoins();
-        OnFinishedFilling_Entity?.Invoke();
+        Entity_OnFinishedFilling?.Invoke();
     }
 
 

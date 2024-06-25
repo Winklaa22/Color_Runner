@@ -1,18 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class ProductType : MonoBehaviour
+public enum ProductType
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    // Virtual
+    NORMAL_DRAW_PACK
 }

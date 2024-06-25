@@ -10,6 +10,7 @@ public class DrawManager : SceneSingleton<DrawManager>
     [SerializeField] private SkinPack m_ultimatePack;
     public event Action OnDrawScreenProcessStarted;
     private int _currentPack = 1;
+    public int CurrentPack => _currentPack;
 
 
     public void OpenDrawScreen(int packIndex)

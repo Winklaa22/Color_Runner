@@ -645,50 +645,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1414572642
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1414572644}
-  - component: {fileID: 1414572643}
-  m_Layer: 0
-  m_Name: GameObject (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1414572643
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1414572642}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ba6d62002f887048b38f71e553e0810, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1414572644
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1414572642}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 444.30762, y: 784.81836, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1458318289
 GameObject:
   m_ObjectHideFlags: 0
@@ -1016,7 +972,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_drawController
       value: 
-      objectReference: {fileID: 1414572643}
+      objectReference: {fileID: 0}
     - target: {fileID: 4109419277460121781, guid: b2cc6970cc7cdbb4b805e55a5f541b7f,
         type: 3}
       propertyPath: m_percentToSlowdown
@@ -1026,7 +982,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1414572643}
+      objectReference: {fileID: 0}
     - target: {fileID: 7393273175474259266, guid: b2cc6970cc7cdbb4b805e55a5f541b7f,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1136,6 +1092,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Menu UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 7393273176575006375, guid: b2cc6970cc7cdbb4b805e55a5f541b7f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnTryAgainButton
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2cc6970cc7cdbb4b805e55a5f541b7f, type: 3}
