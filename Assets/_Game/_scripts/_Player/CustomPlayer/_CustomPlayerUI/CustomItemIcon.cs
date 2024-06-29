@@ -38,7 +38,6 @@ public class CustomItemIcon : MonoBehaviour
     public void Refresh()
     {
         m_lockCanvas.alpha = IsUnlocked ? 0 : 1;
-        Debug.Log("Refreshing");
     }
 
     public void OnPointerDownDelegate()

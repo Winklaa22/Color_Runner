@@ -72,8 +72,10 @@ public class DrawSkinScreen : View
     {
         base.OnViewClosed();
         m_iconTranform.DOScale(1f, .5f).SetEase(Ease.InOutExpo);
+        MainMenuManager.Instance.SetCoinsCounterActive(false);
         
         m_questionMarkIcon.AnimationIn();
+        ShopManager.Instance.Entity_OnVirtualProductHasBought -= OnProductHasBought;
     }
 
     private void Draw()
@@ -96,14 +98,7 @@ public class DrawSkinScreen : View
     {
         if(product.Type == ProductType.NORMAL_DRAW_PACK)
         {
-            if(PlayerDataManager.Instance.Coins >= product.Cost)
-            {
-                TryAgain();
-            }
-            else
-            {
-                UIManager.Instance.ShowWarningPopup("You not have enoght coins");
-            }
+            TryAgain();
         }
     }
 

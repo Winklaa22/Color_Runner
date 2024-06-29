@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 639eed623711bce45b50b6b62700b6fb, type: 3}
+  m_Name: NormalSkinPack_Product
+  m_EditorClassIdentifier: 
+  id: 70f769ac-93c6-4c91-8c29-37a51907ec6c
+  productName: Normal Skin Pack
+  m_type: 0
+  paymentType: 0
+  cost: 100

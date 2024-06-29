@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerDataManager : SceneSingleton<PlayerDataManager>, ISaveable
 {
-    private int _coins;
+    [SerializeField] private int _coins;
     public int Coins => _coins;
 
     protected override void OnAwake()
@@ -32,7 +32,8 @@ public class PlayerDataManager : SceneSingleton<PlayerDataManager>, ISaveable
 
     public void SubtractCoins(int coins)
     {
-        _coins -= Mathf.Clamp(_coins - coins, 0, _coins);
+        _coins = Mathf.Clamp(_coins - coins, 0, _coins);
+        SaveDataManager.Instance.Save();
     }
 
 

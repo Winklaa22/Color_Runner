@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CoinsCounterController : MonoBehaviour
 {
+    [SerializeField] private TweenAnimator m_animator;
     [SerializeField] private TMP_Text m_counter;
     [SerializeField] private float m_timeOfFilling = 3.0f;
     public delegate void OnFinishedFilling();
@@ -12,12 +13,23 @@ public class CoinsCounterController : MonoBehaviour
 
     private void Awake()
     {
-        ShopManager.Instance.Entity_OnVirtualProductHasBought += OnProductBought;
+        ShopManager.Instance.Entity_OnTryToBuyProduct += TryToBuyProduct;
     }
+
+
 
     private void Start()
     {
         UpdateText();
+    }
+
+    public void AnimationIn()
+    {
+        m_animator.AnimationIn();
+    }
+    public void AnimationOut()
+    {
+        m_animator.AnimationOut();
     }
 
     private void UpdateText()
@@ -30,12 +42,27 @@ public class CoinsCounterController : MonoBehaviour
         StartCoroutine(UpdateCoinsCounter(GameManager.Instance.Coins));
     }
 
-    public void OnProductBought(ProductSO product)
+    public void TryToBuyProduct(ProductSO product)
     {
+        if (PlayerDataManager.Instance.Coins >= product.Cost)
+        {
+            BuyProduct(product);
+            
+        }
+        else
+        {
+            UIManager.Instance.ShowWarningPopup(WarningMessagesConst.NotEnoghtCoinsMessage);
+        }
+    }
+
+    private void BuyProduct(ProductSO product)
+    {
+
         StartCoroutine(UpdateCoinsCounter(-product.Cost));
 
         Entity_OnFinishedFilling += () =>
         {
+            ShopManager.Instance.ProductHasBought(product);
             PlayerDataManager.Instance.SubtractCoins(product.Cost);
         };
     }
@@ -55,7 +82,13 @@ public class CoinsCounterController : MonoBehaviour
 
 
         Entity_OnFinishedFilling?.Invoke();
+ 
     }
+    private void OnDestroy()
+    {
+        ShopManager.Instance.Entity_OnTryToBuyProduct -= TryToBuyProduct;
 
+        StopAllCoroutines();
+    }
 
 }

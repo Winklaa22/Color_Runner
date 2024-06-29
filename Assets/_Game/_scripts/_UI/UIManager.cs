@@ -6,6 +6,7 @@ public class UIManager : SceneSingleton<UIManager>
 {
     [SerializeField] private WarningPopup m_warningPopup;
 
+
     protected override void OnAwake()
     {
         base.OnAwake();
