@@ -29,6 +29,19 @@ public class ShopManager : SceneSingleton<ShopManager>
         }
     }
 
+    public ProductType GetSkinPackProduct(SkinPackType skinPackType)
+    {
+        var productType = skinPackType switch
+        {
+            SkinPackType.NORMAL_PACK => ProductType.NORMAL_DRAW_PACK,
+            SkinPackType.RARE_PACK => ProductType.RARE_DRAW_PACK,
+            SkinPackType.ULTIMATE_PACK => ProductType.ULTIMATE_DRAW_PACK,
+            _ => throw new System.NotImplementedException(),
+        };
+
+        return productType;
+    }
+
     public ProductSO GetProduct(ProductType type)
     {
         return m_allProducts.First(x => x.Type == type);
@@ -50,4 +63,6 @@ public class ShopManager : SceneSingleton<ShopManager>
     {
         Entity_OnVirtualProductHasBought?.Invoke(product);
     }
+
+
 }

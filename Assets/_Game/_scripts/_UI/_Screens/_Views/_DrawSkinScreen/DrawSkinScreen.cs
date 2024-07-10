@@ -30,7 +30,6 @@ public class DrawSkinScreen : View
     [Header("Drawing panel")]
     [SerializeField] private TMP_Text m_packName;
     [SerializeField] private Image m_icon;
-    [SerializeField] private Transform m_iconTranform;
     [SerializeField] private TweenAnimator m_questionMarkIcon;
     [SerializeField] private Button m_drawButton;
 
@@ -44,17 +43,14 @@ public class DrawSkinScreen : View
     [SerializeField] private TweenAnimator m_tryAgainButtonAnimator;
     [SerializeField] private Button m_goToMenuButton;
     [SerializeField] private TweenAnimator m_goToMenuButtonAnimator;
-    private bool _canTryAgain = true;
     private CanvasGroup _drawButtonCanvas;
     private CanvasGroup _iconCanvas;
-    private TweenAnimator m_packNameAnimator;
 
     protected override void OnAwake()
     {
         base.OnAwake();
         _iconCanvas = m_icon.GetComponent<CanvasGroup>();
         _drawButtonCanvas = m_drawButton.GetComponent<CanvasGroup>();
-        m_packNameAnimator = m_packName.GetComponent<TweenAnimator>();
         
         m_drawButton.onClick.AddListener(Draw);
         m_tryAgainButton.onClick.AddListener(OnTryAgainButton);
@@ -75,9 +71,9 @@ public class DrawSkinScreen : View
     protected override void OnViewClosed()
     {
         base.OnViewClosed();
-        m_iconTranform.DOScale(1f, .5f).SetEase(Ease.InOutExpo);
+        //m_iconTranform.DOScale(1f, .5f).SetEase(Ease.InOutExpo);
+        SetIconFadeOut();
         MainMenuManager.Instance.SetCoinsCounterActive(false);
-        
         m_questionMarkIcon.AnimationIn();
         ShopManager.Instance.Entity_OnVirtualProductHasBought -= OnProductHasBought;
     }
@@ -95,17 +91,12 @@ public class DrawSkinScreen : View
 
     public void OnTryAgainButton()
     {
-        if (!_canTryAgain)
-            return;
-
-        m_tryAgainButton.interactable = false;
-        _canTryAgain = false;
-        ShopManager.Instance.BuyProduct(ProductType.NORMAL_DRAW_PACK);
+        ShopManager.Instance.BuyProduct(ShopManager.Instance.GetSkinPackProduct(DrawManager.Instance.SkinPackType));
     }
 
     private void OnProductHasBought(ProductSO product)
     {
-        if(product.Type == ProductType.NORMAL_DRAW_PACK)
+        if(product.Type == ShopManager.Instance.GetSkinPackProduct(DrawManager.Instance.SkinPackType))
         {
             TryAgain();
         }
@@ -115,14 +106,12 @@ public class DrawSkinScreen : View
     {
         m_tryAgainButtonAnimator.AnimationOut();
         m_goToMenuButtonAnimator.AnimationOut();
-        m_packNameAnimator.AnimationIn();
-        m_iconTranform.DOScale(m_iconPrimaryScaleValue, m_iconScaleUpDownDuration).SetEase(Ease.InOutExpo);
         SetIconFadeOut();
         m_questionMarkIcon.AnimationIn();
         _drawButtonCanvas.DOFade(1, 0.3f).SetEase(Ease.InOutExpo);
         m_drawButton.interactable = true;
-        m_tryAgainButton.interactable = true;
-        _canTryAgain = true;
+
+
     }
 
     public void BackToMenu()
@@ -153,12 +142,9 @@ public class DrawSkinScreen : View
         }
 
         yield return new WaitForSeconds(m_timeToShowDraw);
-        m_packNameAnimator.AnimationOut();
-        m_iconTranform.DOScale(m_iconScaleUpValue, m_iconScaleUpDownDuration).SetEase(Ease.InOutExpo);
         m_drawnText.text = CustomPlayerManager.Instance.IsItemUnlocked(randomSkin.name) ? m_drawnTextVariances[0] : m_drawnTextVariances [1];
         CustomPlayerManager.Instance.SetItemUnlocked(randomSkin);
         m_drawnTextAnimator.AnimationIn();
-        
         yield return new WaitForSeconds(m_drawnTextDuration); 
         m_drawnTextAnimator.AnimationOut();
         yield return new WaitForSeconds(m_delayToShowButtons);

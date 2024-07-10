@@ -9,7 +9,7 @@ public class DrawManager : SceneSingleton<DrawManager>
     [SerializeField] private SkinPack m_rarePack;
     [SerializeField] private SkinPack m_ultimatePack;
     public event Action OnDrawScreenProcessStarted;
-    private SkinPackType _currentPack = SkinPackType.NORMAL_PACK;
+    [SerializeField] private SkinPackType _currentPack = SkinPackType.NORMAL_PACK;
     public SkinPackType SkinPackType => _currentPack;
 
 
@@ -22,23 +22,12 @@ public class DrawManager : SceneSingleton<DrawManager>
 
     public SkinPack GetCurrentPack()
     {
-        SkinPack pack = null;
-        switch (_currentPack)
+        return _currentPack switch
         {
-            case SkinPackType.NORMAL_PACK:
-                pack = m_normalPack;
-                break;
-            
-            case SkinPackType.RARE_PACK:
-                pack = m_rarePack;
-                break;
-            
-            case SkinPackType.ULTIMATE_PACK:
-                pack = m_ultimatePack;
-                break;
-
-        }
-
-        return pack;
+            SkinPackType.NORMAL_PACK => m_normalPack,
+            SkinPackType.RARE_PACK => m_rarePack,
+            SkinPackType.ULTIMATE_PACK => m_ultimatePack,
+            _ => throw new NotImplementedException(),
+        };
     }
 }

@@ -32,21 +32,14 @@ public class ShopScreen : View
 
     private void OnProductHasBought(ProductSO product)
     {
-        ScreensManager.Instance.OpenScreen(ScreenType.DRAW_SCREEN);
         DrawManager.Instance.OpenDrawScreen(_currentSkinPack);
+        ScreensManager.Instance.OpenScreen(ScreenType.DRAW_SCREEN);
+        
     }
 
     public void OnBuyButtonClicked()
     {
-        var productType = _currentSkinPack switch
-        {
-            SkinPackType.NORMAL_PACK => ProductType.NORMAL_DRAW_PACK,
-            SkinPackType.RARE_PACK => ProductType.RARE_DRAW_PACK,
-            SkinPackType.ULTIMATE_PACK => ProductType.ULTIMATE_DRAW_PACK,
-            _ => throw new NotImplementedException()
-        };
-
-        ShopManager.Instance.BuyProduct(productType);
+        ShopManager.Instance.BuyProduct(ShopManager.Instance.GetSkinPackProduct(_currentSkinPack));
     }
 
     private void OnPageChanged(int pageIndex)
