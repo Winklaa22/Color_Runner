@@ -294,19 +294,32 @@ MonoBehaviour:
   - {fileID: 5627218197071417609}
   - {fileID: 5627218196924920986}
   - {fileID: 5627218197780944640}
+  m_drawingTimes: 100
+  m_percentToSlowdown: 80
+  m_startDrawDelay: 0.05
+  m_slowingdownDrawDelay: 0.01
+  m_timeToShowDraw: 1.5
+  m_drawnTextDuration: 2
+  m_delayToShowButtons: 0.2
+  m_iconFadeInDuration: 4
+  m_iconFadeOutDuration: 0.5
+  m_iconScaleUpDownDuration: 0.3
+  m_iconScaleUpValue: 1.5
+  m_iconPrimaryScaleValue: 1
   m_packName: {fileID: 5627218197887848807}
   m_icon: {fileID: 8703141887336619994}
   m_iconTranform: {fileID: 5627218197071417613}
   m_questionMarkIcon: {fileID: 5627218197100437109}
-  m_drawController: {fileID: 0}
   m_drawButton: {fileID: 5627218196708954637}
   m_drawnText: {fileID: 5627218196083348428}
   m_drawnTextAnimator: {fileID: 5627218196083348429}
   m_drawnTextVariances:
   - You already have this skin. Maybe next time...
   - Congratulation you got new skin
-  m_tryAgainButton: {fileID: 5627218196924920986}
-  m_goToMenuButton: {fileID: 5627218197780944640}
+  m_tryAgainButton: {fileID: 5627218196924920999}
+  m_tryAgainButtonAnimator: {fileID: 5627218196924920986}
+  m_goToMenuButton: {fileID: 5627218197780944643}
+  m_goToMenuButtonAnimator: {fileID: 5627218197780944640}
 --- !u!1 &1263924787756260846
 GameObject:
   m_ObjectHideFlags: 0
@@ -1149,19 +1162,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5627218196924920998}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1263924787375803061}
-        m_TargetAssemblyTypeName: DrawSkinScreen, Assembly-CSharp
-        m_MethodName: TryAgain
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &5627218196924920986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1197,6 +1198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f05a929fd5b2804aa2d335e881850dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_animators: []
 --- !u!1 &5627218197071417602
 GameObject:
   m_ObjectHideFlags: 0
@@ -1639,19 +1641,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5627218197780944642}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1263924787375803061}
-        m_TargetAssemblyTypeName: DrawSkinScreen, Assembly-CSharp
-        m_MethodName: BackToMenu
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &5627218197780944640
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -363,5 +363,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b19f42cb44608a7439b875347e50c162, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_animator: {fileID: 0}
   m_counter: {fileID: 6052472124318990635}
   m_timeOfFilling: 2
+  m_useBlockingMask: 0
+  m_blockingMask: {fileID: 0}

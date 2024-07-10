@@ -17,4 +17,9 @@ public class UIManager : SceneSingleton<UIManager>
     {
         m_warningPopup.ShowPopup(text);
     }
+
+    public string GetResouceIcon(string iconName)
+    {
+        return $"<sprite name={iconName}>";
+    }
 }

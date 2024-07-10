@@ -36,6 +36,7 @@ public class ShopManager : SceneSingleton<ShopManager>
 
     private void BuyVirtualProduct(ProductSO product)
     {
+
         Entity_OnTryToBuyProduct?.Invoke(product);
     
     }

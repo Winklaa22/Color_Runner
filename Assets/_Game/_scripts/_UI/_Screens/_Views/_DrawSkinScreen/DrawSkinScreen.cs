@@ -40,9 +40,11 @@ public class DrawSkinScreen : View
     [SerializeField] private TweenAnimator m_drawnTextAnimator;
     [TextArea(5, 5)]
     [SerializeField] private string[] m_drawnTextVariances;
-    [SerializeField] private TweenAnimator m_tryAgainButton;
-    [SerializeField] private TweenAnimator m_goToMenuButton;
-    
+    [SerializeField] private Button m_tryAgainButton;
+    [SerializeField] private TweenAnimator m_tryAgainButtonAnimator;
+    [SerializeField] private Button m_goToMenuButton;
+    [SerializeField] private TweenAnimator m_goToMenuButtonAnimator;
+    private bool _canTryAgain = true;
     private CanvasGroup _drawButtonCanvas;
     private CanvasGroup _iconCanvas;
     private TweenAnimator m_packNameAnimator;
@@ -55,6 +57,8 @@ public class DrawSkinScreen : View
         m_packNameAnimator = m_packName.GetComponent<TweenAnimator>();
         
         m_drawButton.onClick.AddListener(Draw);
+        m_tryAgainButton.onClick.AddListener(OnTryAgainButton);
+        m_goToMenuButton.onClick.AddListener(BackToMenu);
     }
 
     protected override void OnViewOpened()
@@ -91,6 +95,11 @@ public class DrawSkinScreen : View
 
     public void OnTryAgainButton()
     {
+        if (!_canTryAgain)
+            return;
+
+        m_tryAgainButton.interactable = false;
+        _canTryAgain = false;
         ShopManager.Instance.BuyProduct(ProductType.NORMAL_DRAW_PACK);
     }
 
@@ -104,14 +113,16 @@ public class DrawSkinScreen : View
 
     private void TryAgain()
     {
-        m_tryAgainButton.AnimationOut();
-        m_goToMenuButton.AnimationOut();
+        m_tryAgainButtonAnimator.AnimationOut();
+        m_goToMenuButtonAnimator.AnimationOut();
         m_packNameAnimator.AnimationIn();
         m_iconTranform.DOScale(m_iconPrimaryScaleValue, m_iconScaleUpDownDuration).SetEase(Ease.InOutExpo);
         SetIconFadeOut();
         m_questionMarkIcon.AnimationIn();
         _drawButtonCanvas.DOFade(1, 0.3f).SetEase(Ease.InOutExpo);
         m_drawButton.interactable = true;
+        m_tryAgainButton.interactable = true;
+        _canTryAgain = true;
     }
 
     public void BackToMenu()
@@ -151,8 +162,8 @@ public class DrawSkinScreen : View
         yield return new WaitForSeconds(m_drawnTextDuration); 
         m_drawnTextAnimator.AnimationOut();
         yield return new WaitForSeconds(m_delayToShowButtons);
-        m_tryAgainButton.AnimationIn();
-        m_goToMenuButton.AnimationIn();
+        m_tryAgainButtonAnimator.AnimationIn();
+        m_goToMenuButtonAnimator.AnimationIn();
     }
 
     private void SetIconFadeOut()

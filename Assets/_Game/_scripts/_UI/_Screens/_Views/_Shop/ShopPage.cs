@@ -12,6 +12,6 @@ public abstract class ShopPage : MonoBehaviour
     private void Start()
     {
         m_headerText.text = m_product.ProductName;
-        m_priceText.text = $"{m_product.Cost}$";
+        m_priceText.text = $"{m_product.Cost}{UIManager.Instance.GetResouceIcon(IconConsts.CoinIcon)}";
     }
 }
