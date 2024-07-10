@@ -20,7 +20,7 @@ public class CustomItemIcon : MonoBehaviour
 
     private void Awake()
     {
-        EventTrigger.Entry entry = new EventTrigger.Entry();
+        EventTrigger.Entry entry = new();
         entry.eventID = EventTriggerType.PointerClick;
         entry.callback.AddListener((data) => { OnPointerDownDelegate(); });
         m_eventTrigger.triggers.Add(entry);

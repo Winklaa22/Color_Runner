@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class SkinPack 
+[CreateAssetMenu(fileName="newSkinPack", menuName="Skin Pack")]
+public class SkinPack : ScriptableObject
 {
     [SerializeField] private string m_name = "New Pack";
     public string Name => m_name;
