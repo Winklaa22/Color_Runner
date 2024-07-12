@@ -24,9 +24,14 @@ public class TweenAnimator : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField] private bool m_useMovement;
-    [SerializeField, ShowIf(nameof(m_useMovement))] private RectTransform m_rectTranform;
+    [SerializeField, ShowIf(BoolOperator.Or, nameof(m_useMovement), nameof(m_useDeltaSize))] private RectTransform m_rectTranform;
     [SerializeField, ShowIf(nameof(m_useMovement))] private Vector2 m_startMovePosition;
     [SerializeField, ShowIf(nameof(m_useMovement))] private Vector2 m_endMovePosition;
+
+    [Header("DeltaSize")]
+    [SerializeField] private bool m_useDeltaSize;
+    [SerializeField, ShowIf(nameof(m_useDeltaSize))] private Vector2 m_startDeltasize;
+    [SerializeField, ShowIf(nameof(m_useDeltaSize))] private Vector2 m_endDeltasize;
 
     public void AnimationIn()
     {
@@ -40,6 +45,12 @@ public class TweenAnimator : MonoBehaviour
         {
             m_rectTranform.anchoredPosition = m_startMovePosition;
             m_rectTranform.DOAnchorPos(m_endMovePosition, m_dutation).SetEase(m_ease).SetUpdate(true).OnComplete(() => { OnAnimationCompleted?.Invoke(); });
+        }
+
+        if (m_useDeltaSize)
+        {
+            m_rectTranform.sizeDelta = m_startDeltasize;
+            m_rectTranform.DOSizeDelta(m_endDeltasize, m_dutation).SetEase(m_ease).SetUpdate(true).OnComplete(() => { OnAnimationCompleted?.Invoke(); });
         }
     }
 
@@ -55,8 +66,13 @@ public class TweenAnimator : MonoBehaviour
         if (m_useMovement)
         {
             m_rectTranform.anchoredPosition = m_endMovePosition;
-
             m_rectTranform.DOAnchorPos(m_startMovePosition, m_dutation).SetEase(m_ease).SetUpdate(true).OnComplete(() => { OnAnimationCompleted?.Invoke(); });
+        }
+
+        if (m_useDeltaSize)
+        {
+            m_rectTranform.sizeDelta = m_endDeltasize;
+            m_rectTranform.DOSizeDelta(m_startDeltasize, m_dutation).SetEase(m_ease).SetUpdate(true).OnComplete(() => { OnAnimationCompleted?.Invoke(); });
         }
     }
 }
