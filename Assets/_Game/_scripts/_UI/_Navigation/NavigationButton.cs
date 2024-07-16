@@ -28,7 +28,15 @@ public abstract class NavigationButton : MonoBehaviour
         _eventSystem.triggers.Add(entry);   
     }
 
-    
+    private void Start()
+    {
+        OnStart();
+    }
+
+    protected virtual void OnStart()
+    {
+        
+    }
 
     private void OnButtonClicked()
     {
@@ -44,7 +52,7 @@ public abstract class NavigationButton : MonoBehaviour
     protected virtual void OnButtonClickedActions() { }
 
 
-    public void SetActive(bool active)
+    internal void SetActive(bool active)
     {
         _isActive = active;
 
