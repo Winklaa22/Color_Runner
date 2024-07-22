@@ -28,19 +28,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector3 m_deathCameraPosition;
     [SerializeField] private Transform m_cameraTranform;
 
-    private bool _canMove;
+    [Header("Sliding")]
+    [SerializeField] private float m_slidingDuration;
+
+    private bool _canMove = true;
+    private bool _isSliding;
     private bool _isJumping;
 
     // Start is called before the first frame update
     void Start()
     {
-        InputsManager.Instance.OnTouchEnd += ()=>
-        {
-            if(InputsManager.Instance.GetYDirection() == 1)
-            {
-                StartCoroutine(Jump());
-            }
-        };
+        InputsManager.Instance.OnTouchEnd += OnTouchEnded;
         InitalizeAnimations();
     }
 
@@ -49,17 +47,62 @@ public class PlayerController : MonoBehaviour
         PlayerAnimationsManager.Instance.SetAnimationHandler(m_playerAnimator);
     }
 
+    private void OnTouchEnded()
+    {
+        if (InputsManager.Instance.GetYDirection() == 1)
+        {
+            if (!_isSliding)
+                StartCoroutine(Jump());
+            else
+                EndSlide();
+        }
+
+        if (InputsManager.Instance.GetYDirection() == -1)
+        {
+            StartCoroutine(Slide());
+        }
+    }
+
+    private IEnumerator Slide()
+    {
+        if (!GameManager.Instance.IsMoving || !IsGrounded() || _isJumping)
+            yield break;
+
+        _isSliding = true;
+        _canMove = false;
+        PlayerAnimationsManager.Instance.SetAction(AnimatorActionType.BOOL, PlayerAnimationNames.SlidingBool, true);
+
+
+
+        yield return new WaitForSeconds(m_slidingDuration);
+
+
+        EndSlide();
+    }
+
+    private void EndSlide()
+    {
+        PlayerAnimationsManager.Instance.SetAction(AnimatorActionType.BOOL, PlayerAnimationNames.SlidingBool, false);
+        _isSliding = false;
+        _canMove = true;
+    }
+
     private IEnumerator Jump()
     {
         if (!GameManager.Instance.IsMoving || !IsGrounded())
             yield break;
 
+        if (_isSliding)
+            EndSlide();
+
         _isJumping = true;
+        PlayerAnimationsManager.Instance.SetAction(AnimatorActionType.BOOL, PlayerAnimationNames.JumpingBool, true);
         
         
         m_rigidbody.AddForce(Vector3.up * m_jumpForce, ForceMode.Impulse);
         yield return new WaitForSeconds(m_jumpAnimationTime - 0.3f);
 
+        PlayerAnimationsManager.Instance.SetAction(AnimatorActionType.BOOL, PlayerAnimationNames.JumpingBool, false);
         _isJumping = false;
     }
 
@@ -67,8 +110,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         SetMovement();
-        PlayerAnimationsManager.Instance.AnimationsHandler.SetBool(PlayerAnimationNames.FallingBool, !IsGrounded());
-        PlayerAnimationsManager.Instance.AnimationsHandler.SetBool(PlayerAnimationNames.JumpingBool, _isJumping);
+        PlayerAnimationsManager.Instance.SetAction(AnimatorActionType.BOOL, PlayerAnimationNames.FallingBool, !IsGrounded());
     }
     
     
@@ -87,15 +129,16 @@ public class PlayerController : MonoBehaviour
     
     private void SetMovement()
     {
-        PlayerAnimationsManager.Instance.AnimationsHandler.SetFloat(PlayerAnimationNames.MomentumFloat, GameManager.Instance.MomentumMask);
+        PlayerAnimationsManager.Instance.SetAction(AnimatorActionType.FLOAT, PlayerAnimationNames.MomentumFloat, GameManager.Instance.MomentumMask);
         SetTheTurnRotation();
-        m_rigidbody.velocity = new Vector3(m_xSpeed * GetInputsValue(), m_rigidbody.velocity.y, m_rigidbody.velocity.z);
+        var verticalSpeed = _canMove ? m_xSpeed : 0;
+        m_rigidbody.velocity = new Vector3(verticalSpeed * GetInputsValue(), m_rigidbody.velocity.y, m_rigidbody.velocity.z);
     }
     
     
     private void SetTheTurnRotation()
     {
-        var angle = Mathf.Clamp(_turnAngle * GetInputsValue(), -_turnAngle, _turnAngle);
+        var angle = _canMove ? Mathf.Clamp(_turnAngle * GetInputsValue(), -_turnAngle, _turnAngle) : 0;
         SetModelRotateToAngle(angle);
     }
     

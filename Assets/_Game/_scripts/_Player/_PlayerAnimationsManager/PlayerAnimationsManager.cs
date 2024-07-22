@@ -11,4 +11,26 @@ public class PlayerAnimationsManager : SceneSingleton<PlayerAnimationsManager>
     {
         _animationsHandler = new PlayerAnimationsHandler(animator);
     }
+
+    public void SetAction(AnimatorActionType actionType, string name, object value = null)
+    {
+        switch (actionType)
+        {
+            case AnimatorActionType.BOOL:
+                _animationsHandler.SetBool(name, (bool) value);
+                break;
+
+            case AnimatorActionType.INTEGER:
+                _animationsHandler.SetInt(name, (int)value);
+                break;
+
+            case AnimatorActionType.FLOAT:
+                _animationsHandler.SetFloat(name, (float) value);
+                break;
+
+            case AnimatorActionType.TRIGGER:
+                _animationsHandler.SetTrigger(name);
+                break;
+        }
+    }
 }
