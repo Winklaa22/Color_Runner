@@ -93,14 +93,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5930836899834900771}
-  m_LocalRotation: {x: 0.08443761, y: -0, z: -0, w: 0.99642885}
-  m_LocalPosition: {x: 3.0732683e-15, y: 2.3000002, z: -4}
+  m_LocalRotation: {x: 0.18254548, y: -0, z: -0, w: 0.98319745}
+  m_LocalPosition: {x: 0, y: 2.85, z: -3.73}
   m_LocalScale: {x: 1, y: 1.0000001, z: 1.0000001}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5930836899978249375}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 9.687, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 21.036, y: 0, z: 0}
 --- !u!20 &5930836899834900775
 Camera:
   m_ObjectHideFlags: 0
@@ -175,7 +175,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -195,7 +195,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5930836899978249375}
   - component: {fileID: 5930836899978249374}
-  - component: {fileID: 5930836899978249373}
+  - component: {fileID: 9164614724537866424}
   - component: {fileID: 5930836899978249372}
   - component: {fileID: 3174314340258755595}
   m_Layer: 0
@@ -238,7 +238,7 @@ CapsuleCollider:
   m_Height: 1.7817278
   m_Direction: 1
   m_Center: {x: 0, y: 0.8706746, z: 0}
---- !u!114 &5930836899978249373
+--- !u!114 &9164614724537866424
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -247,20 +247,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 5930836899978249371}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fab362c2c79efd84ba814f25a61ac944, type: 3}
+  m_Script: {fileID: 11500000, guid: f8a2aa2ede4ca80449ca6240655ebca8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_characterTransform: {fileID: 5935195265570281969}
   m_playerAnimator: {fileID: 5988154038940832391}
+  m_cameraTranform: {fileID: 5930836899834900772}
   m_rigidbody: {fileID: 5930836899978249372}
   m_playerCollider: {fileID: 5930836899978249374}
   m_collisionDetector: {fileID: 5930836900610535129}
   m_ragdollController: {fileID: 3174314340258755595}
-  _turnAngle: 50
+  _turnAngle: 45
   m_jumpForce: 4
   m_detectGroundRayLengh: 0.34
   m_jumpAnimationTime: 0.7
   m_xSpeed: 4
+  m_deathCameraPosition: {x: 0, y: 4, z: -5.65}
+  m_slidingDuration: 0.7
+  m_cameraSlidePosition: {x: 0, y: 2.3, z: -3.73}
+  m_slideCameraAnimDuration: 0.1
 --- !u!54 &5930836899978249372
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -294,7 +299,7 @@ MonoBehaviour:
   m_parts:
   - Name: Hips
     PhysicPart: {fileID: 379792540}
-  - Name: 
+  - Name: chest
     PhysicPart: {fileID: 882108523}
   - Name: 
     PhysicPart: {fileID: 1382675975}
@@ -440,6 +445,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CustomizableCharacter
       objectReference: {fileID: 0}
+    - target: {fileID: 1643662241806156, guid: 325c2a72f558d4e419ec4f9ea74e54f5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4675232436007860, guid: 325c2a72f558d4e419ec4f9ea74e54f5, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -483,6 +492,16 @@ PrefabInstance:
     - target: {fileID: 4675232436007860, guid: 325c2a72f558d4e419ec4f9ea74e54f5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 95880590792931522, guid: 325c2a72f558d4e419ec4f9ea74e54f5,
+        type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: d8d5c17a2c78b3c4b813738f4833eac5, type: 3}
+    - target: {fileID: 95880590792931522, guid: 325c2a72f558d4e419ec4f9ea74e54f5,
+        type: 3}
+      propertyPath: m_WarningMessage
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 325c2a72f558d4e419ec4f9ea74e54f5, type: 3}

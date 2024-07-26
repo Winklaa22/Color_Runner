@@ -21,7 +21,7 @@ public class PlayerAnimationsManager : SceneSingleton<PlayerAnimationsManager>
                 break;
 
             case AnimatorActionType.INTEGER:
-                _animationsHandler.SetInt(name, (int)value);
+                _animationsHandler.SetInt(name, (int) value);
                 break;
 
             case AnimatorActionType.FLOAT:

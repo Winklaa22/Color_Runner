@@ -9,6 +9,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform m_characterTransform;
     [SerializeField] private Animator m_playerAnimator;
     
+    [Header("Camera")]
+    [SerializeField] private Transform m_cameraTranform;
+    private Vector3 _cameraPrimatyPosition;
+
     [Header("Physics")]
     [SerializeField] private Rigidbody m_rigidbody;
     [SerializeField] private CapsuleCollider m_playerCollider;
@@ -26,10 +30,11 @@ public class PlayerController : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private float m_xSpeed;
     [SerializeField] private Vector3 m_deathCameraPosition;
-    [SerializeField] private Transform m_cameraTranform;
 
     [Header("Sliding")]
     [SerializeField] private float m_slidingDuration;
+    [SerializeField] private Vector3 m_cameraSlidePosition;
+    [SerializeField] private float m_slideCameraAnimDuration = .1f;
 
     private bool _canMove = true;
     private bool _isSliding;
@@ -39,6 +44,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         InputsManager.Instance.OnTouchEnd += OnTouchEnded;
+        _cameraPrimatyPosition = m_cameraTranform.localPosition;
         InitalizeAnimations();
     }
 
@@ -70,19 +76,16 @@ public class PlayerController : MonoBehaviour
 
         _isSliding = true;
         _canMove = false;
+        m_cameraTranform.DOLocalMove(m_cameraSlidePosition, m_slideCameraAnimDuration);
         PlayerAnimationsManager.Instance.SetAction(AnimatorActionType.BOOL, PlayerAnimationNames.SlidingBool, true);
-
-
-
         yield return new WaitForSeconds(m_slidingDuration);
-
-
         EndSlide();
     }
 
     private void EndSlide()
     {
         PlayerAnimationsManager.Instance.SetAction(AnimatorActionType.BOOL, PlayerAnimationNames.SlidingBool, false);
+        m_cameraTranform.DOLocalMove(_cameraPrimatyPosition, m_slideCameraAnimDuration);
         _isSliding = false;
         _canMove = true;
     }
@@ -128,7 +131,8 @@ public class PlayerController : MonoBehaviour
     }
     
     private void SetMovement()
-    {
+    {      
+
         PlayerAnimationsManager.Instance.SetAction(AnimatorActionType.FLOAT, PlayerAnimationNames.MomentumFloat, GameManager.Instance.MomentumMask);
         SetTheTurnRotation();
         var verticalSpeed = _canMove ? m_xSpeed : 0;
