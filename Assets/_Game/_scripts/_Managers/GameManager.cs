@@ -23,8 +23,16 @@ public class GameManager : SceneSingleton<GameManager>
     [SerializeField] private int _coins;
     public int Coins => _coins;
     public int BonusCoins => (int)(_coins * (m_rewardedPercent / 100));
+
+    //Player death data
+    public DeathType PlayerDeathType { get; private set; }
+    public object PlayerDeathFelonObject { get; private set; }
+
+    //Delegates
     public delegate void OnCoinsCountChanged(int count);
     public OnCoinsCountChanged OnCoinsCountChanged_Entity;
+    public delegate void OnGameOver();
+    public OnGameOver Entity_OnGameOver;
 
 
 
@@ -44,7 +52,7 @@ public class GameManager : SceneSingleton<GameManager>
 
     public void AddRewaredCoins()
     {
-        _coins += BonusCoins; 
+        _coins += BonusCoins;
     }
 
     internal void StartGame()
@@ -78,9 +86,12 @@ public class GameManager : SceneSingleton<GameManager>
         yield return CountMeters();
     }
 
-    public void GameOver()
+    public void OnPlayerDie(DeathType deathType, object felonObject)
     {
+        PlayerDeathType = deathType;
+        PlayerDeathFelonObject = felonObject;
         _isMoving = false;
+        Entity_OnGameOver?.Invoke();
     }
 
     public void CollectCoins()

@@ -22,6 +22,5 @@ public class PlayerStateMachine : StateMachine
         SlideState = new SlidePlayerState(this);
         FallingState = new FallingPlayerState(this);
         DeathState = new DeathPlayerState(this);
-
     }
 }

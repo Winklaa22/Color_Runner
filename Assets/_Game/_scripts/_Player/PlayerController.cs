@@ -167,7 +167,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator Death(bool byExplotion, Transform explotionObject)
     {
         m_cameraTranform.DOLocalMove( m_deathCameraPosition, 2).SetEase(Ease.InOutExpo);
-        GameManager.Instance.GameOver();
+
         m_playerAnimator.enabled = false;
         m_playerCollider.enabled = false;
         m_rigidbody.isKinematic = true;

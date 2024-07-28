@@ -11,13 +11,10 @@ public abstract class PlayerControlState : IState
     {
         _stateMachine = stateMachine;
         _player = _stateMachine.Player;
-
-
     }
 
     private void OnTouchEnded()
     {
-       
         if (InputsManager.Instance.GetYDirection() == 1)
         {
             OnSwipeUp();
@@ -35,13 +32,20 @@ public abstract class PlayerControlState : IState
 
     public virtual void Enter()
     {
-        Debug.Log($"Enter {GetType().Name}");
         InputsManager.Instance.OnTouchEnd += OnTouchEnded;
+        _player.Entity_OnPlayerDied += OnPlayerDied;
     }
 
     public virtual void Exit()
     {
         InputsManager.Instance.OnTouchEnd -= OnTouchEnded;
+        _player.Entity_OnPlayerDied -= OnPlayerDied;
+    }
+
+    private void OnPlayerDied(DeathType cause, object felonObject = null)
+    {
+        GameManager.Instance.OnPlayerDie(cause, felonObject);
+        _stateMachine.ChangeState(_stateMachine.DeathState);
     }
 
     public virtual void HandleInput() { }

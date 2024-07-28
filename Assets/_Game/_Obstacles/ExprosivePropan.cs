@@ -41,7 +41,7 @@ public class ExprosivePropan : MonoBehaviour
 
         foreach(var col in colliders)
         {
-            if(col.TryGetComponent(out PlayerController player))
+            if(col.TryGetComponent(out PlayerControl player))
             {
                 player.DeathByExplotion(transform);
             }

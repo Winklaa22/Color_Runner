@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6367767367722184610}
   - component: {fileID: 6367767367722184609}
+  - component: {fileID: 7439818032923307862}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -44,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277282b7d0531854cba71eacc1c1deb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_player: {fileID: 0}
   m_momentumCurve:
     serializedVersion: 2
     m_Curve:
@@ -75,3 +77,15 @@ MonoBehaviour:
   _isMoving: 0
   m_rewardedPercent: 120
   _coins: 0
+--- !u!114 &7439818032923307862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6367767367722184611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fda729c797e3854faa533b3c514ebdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

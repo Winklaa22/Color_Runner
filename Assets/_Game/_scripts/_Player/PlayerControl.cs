@@ -6,7 +6,9 @@ using UnityEngine;
 public class PlayerControl : MonoBehaviour
 {
     [SerializeField] private Transform m_characterTransform;
+    public Transform CharacterTransform => m_characterTransform;
     [SerializeField] private Animator m_playerAnimator;
+    public Animator PlayerAnimator => m_playerAnimator;
 
     [Header("Camera")]
     [SerializeField] private Transform m_cameraTranform;
@@ -19,8 +21,10 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private Rigidbody m_rigidbody;
     public Rigidbody PlayerRigidbody => m_rigidbody;
     [SerializeField] private CapsuleCollider m_playerCollider;
+    public CapsuleCollider PlayerCollider => m_playerCollider;
     [SerializeField] private TriggerController m_collisionDetector;
     [SerializeField] private RagdollController m_ragdollController;
+    public RagdollController RagdollControl => m_ragdollController;
 
     [Header("Turn")]
     [SerializeField, Range(0, 360)] private float _turnAngle = 45f;
@@ -36,6 +40,7 @@ public class PlayerControl : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private float m_xSpeed;
     [SerializeField] private Vector3 m_deathCameraPosition;
+    public Vector3 DeathCameraPosition => m_deathCameraPosition;
 
     [Header("Sliding")]
     [SerializeField] private float m_slidingDuration;
