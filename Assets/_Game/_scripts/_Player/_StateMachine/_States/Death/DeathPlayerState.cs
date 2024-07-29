@@ -14,9 +14,9 @@ public class DeathPlayerState : PlayerControlState
     {
         base.Enter();
         _player.CameraTranform.DOLocalMove(_player.DeathCameraPosition, 2).SetEase(Ease.InOutExpo);
-        _player.PlayerAnimator.enabled = false;
-        _player.PlayerCollider.enabled = false;
+        _player.PlayerAnimator.enabled = false;   
         _player.PlayerRigidbody.isKinematic = true;
+        _player.PlayerCollider.SetActive(false);
         _player.RagdollControl.SetActive(true);
 
         switch (GameManager.Instance.PlayerDeathType)

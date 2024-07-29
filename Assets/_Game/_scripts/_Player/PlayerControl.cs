@@ -20,8 +20,8 @@ public class PlayerControl : MonoBehaviour
     [Header("Physics")]
     [SerializeField] private Rigidbody m_rigidbody;
     public Rigidbody PlayerRigidbody => m_rigidbody;
-    [SerializeField] private CapsuleCollider m_playerCollider;
-    public CapsuleCollider PlayerCollider => m_playerCollider;
+    [SerializeField] private PlayerColliderController m_playerCollider;
+    public PlayerColliderController PlayerCollider => m_playerCollider;
     [SerializeField] private TriggerController m_collisionDetector;
     [SerializeField] private RagdollController m_ragdollController;
     public RagdollController RagdollControl => m_ragdollController;

@@ -14,6 +14,7 @@ public class SlidePlayerState : PlayerControlState
     {
         base.Enter();
         _player.StartCoroutine(Slide());
+        _player.PlayerCollider.ChangeState(PlayersColliderState.SLIDING);
     }
 
     protected override void OnSwipeUp()

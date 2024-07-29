@@ -13,6 +13,7 @@ public class RunningPlayerState : PlayerControlState
     {
         base.Enter();
         _player.CanMove = true;
+        _player.PlayerCollider.ChangeState(PlayersColliderState.RUNNING);
     }
 
     public override void Update()

@@ -20,6 +20,7 @@ public class FallingPlayerState : PlayerControlState
     {
         base.Enter();
         PlayerAnimationsManager.Instance.SetAction(AnimatorActionType.BOOL, PlayerAnimationNames.FallingBool, true);
+        _player.PlayerCollider.ChangeState(PlayersColliderState.FALLING);
     }
 
     public override void Exit()

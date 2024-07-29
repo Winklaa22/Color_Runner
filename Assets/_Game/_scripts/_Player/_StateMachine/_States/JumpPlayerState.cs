@@ -13,6 +13,7 @@ public class JumpPlayerState : PlayerControlState
     {
         base.Enter();
         _player.StartCoroutine(Jump());
+        _player.PlayerCollider.ChangeState(PlayersColliderState.JUMPING);
     }
 
 

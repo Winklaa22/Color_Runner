@@ -197,6 +197,7 @@ GameObject:
   - component: {fileID: 5930836899978249374}
   - component: {fileID: 9164614724537866424}
   - component: {fileID: 5930836899978249372}
+  - component: {fileID: 2412744646316220043}
   - component: {fileID: 3174314340258755595}
   m_Layer: 0
   m_Name: Player
@@ -234,10 +235,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.45
-  m_Height: 1.7817278
+  m_Radius: 0.3056384
+  m_Height: 1.217699
   m_Direction: 1
-  m_Center: {x: 0, y: 0.8706746, z: 0}
+  m_Center: {x: 0, y: 0.5886604, z: 0}
 --- !u!114 &9164614724537866424
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,7 +255,7 @@ MonoBehaviour:
   m_playerAnimator: {fileID: 5988154038940832391}
   m_cameraTranform: {fileID: 5930836899834900772}
   m_rigidbody: {fileID: 5930836899978249372}
-  m_playerCollider: {fileID: 5930836899978249374}
+  m_playerCollider: {fileID: 2412744646316220043}
   m_collisionDetector: {fileID: 5930836900610535129}
   m_ragdollController: {fileID: 3174314340258755595}
   _turnAngle: 45
@@ -282,6 +283,40 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &2412744646316220043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5930836899978249371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67e656629fe46c24f8fb746fa0f28090, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_playerCollider: {fileID: 5930836899978249374}
+  m_colliderDataStates:
+  - State: 0
+    Center: {x: 0, y: 0.8706746, z: 0}
+    Radius: 0.45
+    Height: 1.781728
+  - State: 1
+    Center: {x: 0, y: 0.8706746, z: 0}
+    Radius: 0.45
+    Height: 1.781728
+  - State: 2
+    Center: {x: 0, y: 0.8706746, z: 0}
+    Radius: 0.45
+    Height: 1.781728
+  - State: 3
+    Center: {x: 0, y: 0.8706746, z: 0}
+    Radius: 0.45
+    Height: 1.781728
+  - State: 4
+    Center: {x: 0.1300424, y: 0.5875694, z: 0}
+    Radius: 0.3199576
+    Height: 1.215517
 --- !u!114 &3174314340258755595
 MonoBehaviour:
   m_ObjectHideFlags: 0
