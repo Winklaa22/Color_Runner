@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Biome : MonoBehaviour
+[System.Serializable]
+public class Biome
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private Vector2 m_distanceRange;
+    public float MaxDistance => m_distanceRange.y;
+    [SerializeField] private EnvironmentController[] m_environmentPrefabs;
+    public EnvironmentController[] EnvironmentPrefabs => m_environmentPrefabs;
+    [SerializeField] private List<PlatformType> m_platformTypes;
+    public List<PlatformType> PlatformTypes => m_platformTypes;
 
-    // Update is called once per frame
-    void Update()
+    public bool IsDistanceMatch()
     {
-        
+        var distance = GameManager.Instance.Meters;
+
+        return distance >= m_distanceRange.x && distance <= m_distanceRange.y; 
     }
 }
