@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4160479503896083089}
   - component: {fileID: 7255035368752139204}
   m_Layer: 0
-  m_Name: Platform 3
+  m_Name: BIome 1 Index 0 Platform 3
   m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

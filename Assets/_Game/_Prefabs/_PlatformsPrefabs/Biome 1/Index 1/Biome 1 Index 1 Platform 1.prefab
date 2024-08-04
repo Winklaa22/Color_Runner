@@ -445,7 +445,7 @@ GameObject:
   - component: {fileID: 7744537334883287845}
   - component: {fileID: 3920930508785136240}
   m_Layer: 0
-  m_Name: Platform
+  m_Name: Biome 1 Index 1 Platform 1
   m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -50,7 +50,7 @@ MonoBehaviour:
     m_platformTypes:
     - m_index: 0
       m_platforms:
-      - {fileID: 6669203049841439046, guid: b93395fccc3afe54491aa4494ad0a8fc, type: 3}
+      - {fileID: 1165055491950840935, guid: e2f7aec5791f3fe429c854e59de920c3, type: 3}
       - {fileID: 8446596958373154572, guid: e8c19098200b8b247a2d6d8794b7bed3, type: 3}
       - {fileID: 7415131884752626719, guid: baccfa94e97ff6744812e38313cce14a, type: 3}
     - m_index: 1
@@ -63,12 +63,14 @@ MonoBehaviour:
       - {fileID: 1646474532696695307, guid: da4ba25360411f142bdf43fe11ad50eb, type: 3}
       - {fileID: 1646474532696695307, guid: 8883ea8a265e0824a9ab7fbff436da4b, type: 3}
       - {fileID: 1029958078973135090, guid: 6a75fffb343493b48915660fca845672, type: 3}
+  _lastTypeIndex: 0
   _environments:
   - {fileID: 0}
   _platforms:
   - {fileID: 0}
   _lastNumberOfPlatform: 0
   _lastPlatform: {fileID: 0}
+  _indexToSpawn: 0
   m_platformSpeed: 7.92
   m_spawningDelay: 1
   m_platformCount: 10
