@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class StartScreenView : View
 {
     [SerializeField] private EventTrigger m_maskEvent;
+    private bool _isStarted;
 
     protected override void OnAwake()
     {
@@ -19,7 +20,11 @@ public class StartScreenView : View
 
     private void OnStartGame()
     {
+        if (_isStarted)
+            return;
+
         GameManager.Instance.StartGame();
         ScreensManager.Instance.OpenScreen(ScreenType.PLAYER_HUD);
+        _isStarted = true;
     }
 }
